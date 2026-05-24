@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "12625303697",
+    "project_id": "eventguard-601b6",
+    "storage_bucket": "eventguard-601b6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12625303697:android:db4dc7824f0abeb8bec730",
+        "android_client_info": {
+          "package_name": "com.example.eventguard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOm1VNgj8hgrEo9lpb08dOMz0tdtrqYg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

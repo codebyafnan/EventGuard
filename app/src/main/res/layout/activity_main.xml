@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".MainActivity">
+        <!-- VIEW FLIPPER (handles Splash → Login → Register) -->
+        <ViewFlipper
+            android:id="@+id/viewFlipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--SPLASH / LOADER -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:background="#000B36">
+
+                    <ImageView
+                        android:layout_width="320dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/logo"
+                        android:layout_marginBottom="20dp"/>
+
+                    <ProgressBar
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:indeterminateTint="#246DFD"/>
+                </LinearLayout>
+        </ViewFlipper>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

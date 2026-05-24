@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:elevation="4dp"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- STATUS -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000B36"
+            android:layout_marginBottom="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cbRegistered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registered"
+            android:textColor="#444444"/>
+
+        <CheckBox
+            android:id="@+id/cbJoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join"
+            android:textColor="#444444"/>
+
+        <CheckBox
+            android:id="@+id/cbFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full"
+            android:textColor="#444444"/>
+
+        <!-- CATEGORY -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000B36"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cbWorkshop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Workshop"
+            android:textColor="#444444"/>
+
+        <CheckBox
+            android:id="@+id/cbSeminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seminar"
+            android:textColor="#444444"/>
+
+        <CheckBox
+            android:id="@+id/cbExhibition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exhibition"
+            android:textColor="#444444"/>
+
+        <CheckBox
+            android:id="@+id/cbHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hackathon"
+            android:textColor="#444444"/>
+
+        <!-- TIME RANGE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time Range"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000B36"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cbWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This Week"
+            android:textColor="#444444"/>
+
+        <CheckBox
+            android:id="@+id/cbMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This Month"
+            android:textColor="#444444"/>
+
+        <!-- SORT BY -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort By"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000B36"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cbNewest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Newest First"
+            android:textColor="#444444"/>
+
+        <CheckBox
+            android:id="@+id/cbOldest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oldest First"
+            android:textColor="#444444"/>
+
+        <!-- DATE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Date"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000B36"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:theme="@style/Theme.AppCompat.Light"/>
+
+        <!-- BUTTON -->
+        <Button
+            android:id="@+id/btnApplyFilter"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Apply Filters"
+            android:textSize="16sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#000B36"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+</ScrollView>

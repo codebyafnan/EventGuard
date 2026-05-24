@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F5F7">
+
+    <!-- SCROLLABLE CONTENT -->
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNav"
+        android:orientation="vertical">
+
+            <!-- TOP BAR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="#000B36"
+                android:gravity="center_vertical"
+                android:paddingTop="18dp"
+                android:paddingBottom="12dp">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="58dp"
+                    android:src="@drawable/top_logo"
+                    />
+
+            </LinearLayout>
+
+            <!-- Search -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_bg"
+                    android:drawableStart="@drawable/icon_search"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="Search for events...."
+                    android:padding="12dp"
+                    android:textSize="14dp" />
+
+                <ImageButton
+                    android:id="@+id/btnFilter"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/blue_badge"
+                    android:src="@drawable/icon_filter"/>
+            </LinearLayout>
+
+            <!-- Filter Section (Hidden by default) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/filterSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginHorizontal="14dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginBottom="8dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:maxHeight="400dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status"
+                            android:textStyle="bold"
+                            android:textColor="#000B36"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <CheckBox android:id="@+id/cbRegistered" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Registered"/>
+                            <CheckBox android:id="@+id/cbJoin" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Join"/>
+                            <CheckBox android:id="@+id/cbFull" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Full"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Category"
+                            android:textStyle="bold"
+                            android:textColor="#000B36"
+                            android:layout_marginTop="8dp"/>
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2">
+                            <CheckBox android:id="@+id/cbWorkshop" android:text="Workshop"/>
+                            <CheckBox android:id="@+id/cbSeminar" android:text="Seminar"/>
+                            <CheckBox android:id="@+id/cbExhibition" android:text="Exhibition"/>
+                            <CheckBox android:id="@+id/cbHackathon" android:text="Hackathon"/>
+                        </GridLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select Date"
+                            android:textStyle="bold"
+                            android:textColor="#000B36"
+                            android:layout_marginTop="8dp"/>
+                        <CalendarView
+                            android:id="@+id/calendarFilter"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:theme="@style/Theme.AppCompat.Light"/>
+
+                        <Button
+                            android:id="@+id/btnApplyFilter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Apply Filters"
+                            android:layout_marginTop="12dp"
+                            android:backgroundTint="#000B36"
+                            android:textColor="#FFFFFF"/>
+                    </LinearLayout>
+                </ScrollView>
+            </androidx.cardview.widget.CardView>
+<!--             List of events dsiplay from Db-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEvents"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvNoEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_events_found"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:textSize="16sp"
+                android:textColor="#888888"
+                android:visibility="gone"/>
+
+
+
+        </LinearLayout>
+
+    <!-- BOTTOM NAVIGATION -->
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:elevation="12dp"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <!-- EVENTS -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/nav_bg">
+
+                <ImageView
+                    android:id="@+id/btnmain"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/event_light" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- MY TICKETS -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/btnticket"
+                android:layout_width="55dp"
+                android:layout_height="60dp"
+                android:src="@drawable/nav_grey_ticket" />
+        </LinearLayout>
+
+        <!-- DASHBOARD ACTIVE -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/btndashboard"
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:src="@drawable/nav_grey_dashboard" />
+
+        </LinearLayout>
+
+        <!-- PROFILE -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/btnprofile"
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:src="@drawable/nav_grey_profile" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
