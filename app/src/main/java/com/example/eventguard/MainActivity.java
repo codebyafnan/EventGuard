@@ -3,6 +3,12 @@ package com.example.eventguard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.eventguard.Auth.DatabaseHelper;
+import com.example.eventguard.Auth.Login;
+import com.example.eventguard.Dashboards.AdminDashboard;
+import com.example.eventguard.events.events;
+import com.example.eventguard.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;

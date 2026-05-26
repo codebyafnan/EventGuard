@@ -1,10 +1,9 @@
-package com.example.eventguard;
+package com.example.eventguard.Dashboards;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,6 +21,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.eventguard.Auth.Login;
+import com.example.eventguard.Auth.DatabaseHelper;
+import com.example.eventguard.R;
+import com.example.eventguard.events.events;
+import com.example.eventguard.models.User;
+import com.example.eventguard.tickets.registered_events;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -135,7 +140,7 @@ public class profile_setting extends AppCompatActivity {
 
         // Navbar navigation
         btnmain.setOnClickListener(v -> startActivity(new Intent(profile_setting.this, events.class)));
-        btndashboard.setOnClickListener(v -> startActivity(new Intent(profile_setting.this, dashboard.class)));
+        btndashboard.setOnClickListener(v -> startActivity(new Intent(profile_setting.this, UserDashboard.class)));
         btnticket.setOnClickListener(v -> startActivity(new Intent(profile_setting.this, registered_events.class)));
         btnprofile.setOnClickListener(v -> {}); // Already here
 

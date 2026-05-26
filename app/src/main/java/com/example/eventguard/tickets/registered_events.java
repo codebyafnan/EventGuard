@@ -1,11 +1,9 @@
-package com.example.eventguard;
+package com.example.eventguard.tickets;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eventguard.Dashboards.UserDashboard;
+import com.example.eventguard.R;
+import com.example.eventguard.events.events;
+import com.example.eventguard.models.Registration;
+import com.example.eventguard.Dashboards.profile_setting;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,7 +82,7 @@ public class registered_events extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent registered_ev =
-                        new Intent(registered_events.this, dashboard.class);
+                        new Intent(registered_events.this, UserDashboard.class);
                 startActivity(registered_ev);
             }
         });

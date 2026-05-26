@@ -1,4 +1,4 @@
-package com.example.eventguard;
+package com.example.eventguard.events;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +25,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.annotation.NonNull;
 
+import com.example.eventguard.Dashboards.UserDashboard;
+import com.example.eventguard.R;
+import com.example.eventguard.models.Event;
+import com.example.eventguard.models.Registration;
+import com.example.eventguard.Dashboards.profile_setting;
+import com.example.eventguard.tickets.registered_events;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import androidx.cardview.widget.CardView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,7 +139,7 @@ public class events extends AppCompatActivity {
         });
 
         btnmain.setOnClickListener(v -> startActivity(new Intent(events.this, events.class)));
-        btndashboard.setOnClickListener(v -> startActivity(new Intent(events.this, dashboard.class)));
+        btndashboard.setOnClickListener(v -> startActivity(new Intent(events.this, UserDashboard.class)));
         btnticket.setOnClickListener(v -> startActivity(new Intent(events.this, registered_events.class)));
         btnprofile.setOnClickListener(v -> startActivity(new Intent(events.this, profile_setting.class)));
 

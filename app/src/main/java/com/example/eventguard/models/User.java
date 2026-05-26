@@ -1,4 +1,4 @@
-package com.example.eventguard;
+package com.example.eventguard.models;
 
 public class User {
     public String name, email, role, bio, phone, country, profilePic;

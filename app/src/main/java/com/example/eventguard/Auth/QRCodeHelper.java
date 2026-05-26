@@ -1,4 +1,4 @@
-package com.example.eventguard;
+package com.example.eventguard.Auth;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

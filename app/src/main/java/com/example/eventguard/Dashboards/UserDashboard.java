@@ -1,8 +1,7 @@
-package com.example.eventguard;
+package com.example.eventguard.Dashboards;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +15,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.eventguard.Auth.DatabaseHelper;
+import com.example.eventguard.Auth.Login;
+import com.example.eventguard.R;
+import com.example.eventguard.models.Registration;
+import com.example.eventguard.models.User;
+import com.example.eventguard.events.events;
+import com.example.eventguard.tickets.registered_events;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.File;
 import java.util.Locale;
 
-public class dashboard extends AppCompatActivity {
+public class UserDashboard extends AppCompatActivity {
 
     private TextView tvDashName, tvDashRole, tvDashTicketCount, tvDashEmail, tvDashBio, tvDashPhone, tvDashLocation, tvDashJoinedEvents;
     private ImageView ivDashProfile;
@@ -85,14 +91,14 @@ public class dashboard extends AppCompatActivity {
 
         loadDashboardData(currentUser.getUid());
 
-        btn_ticket_card.setOnClickListener(v -> startActivity(new Intent(dashboard.this, registered_events.class)));
-        btnEventCard.setOnClickListener(v -> startActivity(new Intent(dashboard.this, events.class)));
-        btnProSet.setOnClickListener(v -> startActivity(new Intent(dashboard.this, profile_setting.class)));
+        btn_ticket_card.setOnClickListener(v -> startActivity(new Intent(UserDashboard.this, registered_events.class)));
+        btnEventCard.setOnClickListener(v -> startActivity(new Intent(UserDashboard.this, events.class)));
+        btnProSet.setOnClickListener(v -> startActivity(new Intent(UserDashboard.this, profile_setting.class)));
 
         // Nav
-        btnprofile.setOnClickListener(v -> startActivity(new Intent(dashboard.this, profile_setting.class)));
-        btnmain.setOnClickListener(v -> startActivity(new Intent(dashboard.this, events.class)));
-        btnticket.setOnClickListener(v -> startActivity(new Intent(dashboard.this, registered_events.class)));
+        btnprofile.setOnClickListener(v -> startActivity(new Intent(UserDashboard.this, profile_setting.class)));
+        btnmain.setOnClickListener(v -> startActivity(new Intent(UserDashboard.this, events.class)));
+        btnticket.setOnClickListener(v -> startActivity(new Intent(UserDashboard.this, registered_events.class)));
         btndashboard.setOnClickListener(v -> {}); // Already here
     }
 
@@ -130,7 +136,7 @@ public class dashboard extends AppCompatActivity {
                 // Ignore errors if we have local data, otherwise show toast
                 try {
                     if (dbHelper.getUser(userId) == null) {
-                        Toast.makeText(dashboard.this, "Error loading user data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserDashboard.this, "Error loading user data", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -196,7 +202,7 @@ public class dashboard extends AppCompatActivity {
             ivDashProfile.setImageResource(resId != 0 ? resId : R.drawable.user_profile);
         } else if (localFile.exists()) {
             // Local custom image exists
-            Glide.with(dashboard.this)
+            Glide.with(UserDashboard.this)
                     .load(localFile)
                     .placeholder(R.drawable.user_profile)
                     .error(R.drawable.user_profile)
@@ -205,7 +211,7 @@ public class dashboard extends AppCompatActivity {
         } else if (user.profilePic != null && !user.profilePic.isEmpty()) {
             // Fallback to whatever is in the database (could be a path or URL)
             Object imageSource = user.profilePic.startsWith("/") ? new File(user.profilePic) : user.profilePic;
-            Glide.with(dashboard.this)
+            Glide.with(UserDashboard.this)
                     .load(imageSource)
                     .placeholder(R.drawable.user_profile)
                     .error(R.drawable.user_profile)

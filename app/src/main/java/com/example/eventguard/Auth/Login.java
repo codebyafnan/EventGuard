@@ -1,4 +1,4 @@
-package com.example.eventguard;
+package com.example.eventguard.Auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eventguard.Dashboards.AdminDashboard;
+import com.example.eventguard.R;
+import com.example.eventguard.events.events;
+import com.example.eventguard.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

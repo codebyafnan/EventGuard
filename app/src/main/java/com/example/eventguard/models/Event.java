@@ -1,4 +1,4 @@
-package com.example.eventguard;
+package com.example.eventguard.models;
 
 public class Event {
     public String id;

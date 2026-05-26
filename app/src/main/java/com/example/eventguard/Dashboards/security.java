@@ -1,22 +1,23 @@
-package com.example.eventguard;
+package com.example.eventguard.Dashboards;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.eventguard.R;
+import com.example.eventguard.events.events;
+import com.example.eventguard.tickets.registered_events;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,7 +64,7 @@ public class security extends AppCompatActivity {
         // Navbar
         findViewById(R.id.btnmain).setOnClickListener(v -> startActivity(new Intent(this, events.class)));
         findViewById(R.id.btnticket).setOnClickListener(v -> startActivity(new Intent(this, registered_events.class)));
-        findViewById(R.id.btndashboard).setOnClickListener(v -> startActivity(new Intent(this, dashboard.class)));
+        findViewById(R.id.btndashboard).setOnClickListener(v -> startActivity(new Intent(this, UserDashboard.class)));
         findViewById(R.id.btnprofile).setOnClickListener(v -> startActivity(new Intent(this, profile_setting.class)));
     }
 

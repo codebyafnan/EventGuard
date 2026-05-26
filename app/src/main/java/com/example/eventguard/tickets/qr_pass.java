@@ -1,4 +1,4 @@
-package com.example.eventguard;
+package com.example.eventguard.tickets;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -23,7 +23,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.eventguard.Auth.QRCodeHelper;
+import com.example.eventguard.Dashboards.UserDashboard;
+import com.example.eventguard.R;
+import com.example.eventguard.events.events;
+import com.example.eventguard.models.Event;
+import com.example.eventguard.models.Registration;
+import com.example.eventguard.Dashboards.profile_setting;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +37,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.OutputStream;
-import java.util.Locale;
 
 public class qr_pass extends AppCompatActivity {
 
@@ -81,7 +86,7 @@ public class qr_pass extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent registered_ev =
-                        new Intent(qr_pass.this, dashboard.class);
+                        new Intent(qr_pass.this, UserDashboard.class);
                 startActivity(registered_ev);
             }
         });

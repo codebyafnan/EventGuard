@@ -14,41 +14,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventGuard">
         <activity
-            android:name=".dialog_filter"
+            android:name=".events.dialog_filter"
             android:exported="false" />
         <activity
-            android:name=".events_details"
+            android:name=".events.events_details"
             android:exported="false" />
         <activity
-            android:name=".qr_pass"
+            android:name=".tickets.qr_pass"
             android:exported="false" />
         <activity
-            android:name=".security"
+            android:name=".Dashboards.security"
             android:exported="false"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".profile_setting"
+            android:name=".Dashboards.profile_setting"
             android:exported="false"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".dashboard"
+            android:name=".Dashboards.UserDashboard"
             android:exported="false" />
         <activity
-            android:name=".registered_events"
+            android:name=".tickets.registered_events"
             android:exported="false" />
         <activity
-            android:name=".events"
+            android:name=".events.events"
             android:exported="false"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".AdminDashboard"
+            android:name=".Dashboards.AdminDashboard"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".Auth.Login"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".Auth.Register"
             android:exported="false"
             android:windowSoftInputMode="stateHidden"/>
         <activity
