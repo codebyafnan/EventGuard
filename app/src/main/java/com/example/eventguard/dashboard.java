@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.util.Locale;
 
 public class dashboard extends AppCompatActivity {
@@ -166,16 +167,18 @@ public class dashboard extends AppCompatActivity {
     }
 
     private void displayUser(User user) {
+        String userId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "";
         tvDashName.setText(user.name);
         tvDashRole.setText(user.role);
         tvDashEmail.setText(user.email);
+        tvDashBio = findViewById(R.id.tvDashBio); // Ensure it's initialized if not already
         tvDashBio.setText(user.bio != null && !user.bio.isEmpty() ? user.bio : "No bio added.");
         tvDashPhone.setText(user.phone != null && !user.phone.isEmpty() ? user.phone : "Not set");
         tvDashLocation.setText(user.country != null && !user.country.isEmpty() ? user.country : "Not set");
 
         // Format Joined Date
         if (user.joinedDate > 0) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM yyyy", java.util.Locale.getDefault());
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMMM yyyy", java.util.Locale.getDefault());
             currentJoinedDateFormatted = sdf.format(new java.util.Date(user.joinedDate));
         }
         
@@ -184,21 +187,31 @@ public class dashboard extends AppCompatActivity {
         tvDashJoinedEvents.setText(fullText);
 
         // Load Profile Picture
-        if (user.profilePic != null && !user.profilePic.isEmpty()) {
-            if (user.profilePic.equals("user_profile") || user.profilePic.equals("male_profile") || user.profilePic.equals("female_profile")) {
-                int resId = getResources().getIdentifier(user.profilePic, "drawable", getPackageName());
-                if (resId != 0) {
-                    ivDashProfile.setImageResource(resId);
-                } else {
-                    ivDashProfile.setImageResource(R.drawable.user_profile);
-                }
-            } else {
-                Glide.with(dashboard.this)
-                        .load(user.profilePic)
-                        .placeholder(R.drawable.user_profile)
-                        .error(R.drawable.user_profile)
-                        .into(ivDashProfile);
-            }
+        // First check for local file with user ID
+        File localFile = new File(getFilesDir(), "profile_" + userId + ".jpg");
+        
+        if (user.profilePic != null && (user.profilePic.equals("user_profile") || user.profilePic.equals("male_profile") || user.profilePic.equals("female_profile"))) {
+            // User selected a default avatar
+            int resId = getResources().getIdentifier(user.profilePic, "drawable", getPackageName());
+            ivDashProfile.setImageResource(resId != 0 ? resId : R.drawable.user_profile);
+        } else if (localFile.exists()) {
+            // Local custom image exists
+            Glide.with(dashboard.this)
+                    .load(localFile)
+                    .placeholder(R.drawable.user_profile)
+                    .error(R.drawable.user_profile)
+                    .signature(new com.bumptech.glide.signature.ObjectKey(localFile.lastModified()))
+                    .into(ivDashProfile);
+        } else if (user.profilePic != null && !user.profilePic.isEmpty()) {
+            // Fallback to whatever is in the database (could be a path or URL)
+            Object imageSource = user.profilePic.startsWith("/") ? new File(user.profilePic) : user.profilePic;
+            Glide.with(dashboard.this)
+                    .load(imageSource)
+                    .placeholder(R.drawable.user_profile)
+                    .error(R.drawable.user_profile)
+                    .into(ivDashProfile);
+        } else {
+            ivDashProfile.setImageResource(R.drawable.user_profile);
         }
     }
 }

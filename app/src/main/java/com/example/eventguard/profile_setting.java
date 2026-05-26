@@ -51,7 +51,7 @@ public class profile_setting extends AppCompatActivity {
                     imageUri = result.getData().getData();
                     ivProfileLarge.setImageURI(imageUri); // Preview immediately
                     
-                    // Save locally first
+                    // Save locally
                     String localPath = saveImageToInternalStorage(imageUri);
                     if (localPath != null) {
                         updateProfilePic(localPath);
@@ -172,6 +172,7 @@ public class profile_setting extends AppCompatActivity {
     }
 
     private void displayUser(User user) {
+        String userId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "";
         etName.setText(user.name);
         etEmail.setText(user.email);
         etBio.setText(user.bio);
@@ -183,30 +184,31 @@ public class profile_setting extends AppCompatActivity {
             tvAccountRole.setText(user.role);
         }
 
-        // Load Profile Picture
-        if (user.profilePic != null && !user.profilePic.isEmpty()) {
-            if (user.profilePic.equals("user_profile") || user.profilePic.equals("male_profile") || user.profilePic.equals("female_profile")) {
-                int resId = getResources().getIdentifier(user.profilePic, "drawable", getPackageName());
-                if (resId != 0) {
-                    ivProfileLarge.setImageResource(resId);
-                } else {
-                    ivProfileLarge.setImageResource(R.drawable.user_profile);
-                }
-            } else {
-                // Check if it's a local file path or a URL
-                Object imageSource;
-                if (user.profilePic.startsWith("/")) {
-                    imageSource = new File(user.profilePic);
-                } else {
-                    imageSource = user.profilePic;
-                }
+        // Load Profile Picture using UID
+        File localFile = new File(getFilesDir(), "profile_" + userId + ".jpg");
 
-                Glide.with(profile_setting.this)
-                        .load(imageSource)
-                        .placeholder(R.drawable.user_profile)
-                        .error(R.drawable.user_profile)
-                        .into(ivProfileLarge);
-            }
+        if (user.profilePic != null && (user.profilePic.equals("user_profile") || user.profilePic.equals("male_profile") || user.profilePic.equals("female_profile"))) {
+            // User selected a default avatar
+            int resId = getResources().getIdentifier(user.profilePic, "drawable", getPackageName());
+            ivProfileLarge.setImageResource(resId != 0 ? resId : R.drawable.user_profile);
+        } else if (localFile.exists()) {
+            // Load local custom image with signature to bypass cache
+            Glide.with(profile_setting.this)
+                    .load(localFile)
+                    .placeholder(R.drawable.user_profile)
+                    .error(R.drawable.user_profile)
+                    .signature(new com.bumptech.glide.signature.ObjectKey(localFile.lastModified()))
+                    .into(ivProfileLarge);
+        } else if (user.profilePic != null && !user.profilePic.isEmpty()) {
+            // Fallback for path stored in database
+            Object imageSource = user.profilePic.startsWith("/") ? new File(user.profilePic) : user.profilePic;
+            Glide.with(profile_setting.this)
+                    .load(imageSource)
+                    .placeholder(R.drawable.user_profile)
+                    .error(R.drawable.user_profile)
+                    .into(ivProfileLarge);
+        } else {
+            ivProfileLarge.setImageResource(R.drawable.user_profile);
         }
     }
 
@@ -250,9 +252,12 @@ public class profile_setting extends AppCompatActivity {
     }
 
     private String saveImageToInternalStorage(Uri uri) {
+        if (auth.getCurrentUser() == null) return null;
+        String uid = auth.getCurrentUser().getUid();
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
-            File file = new File(getFilesDir(), "profile_picture.jpg");
+            // Use UID in filename to avoid conflicts and add timestamp to bypass Glide cache
+            File file = new File(getFilesDir(), "profile_" + uid + ".jpg");
             FileOutputStream outputStream = new FileOutputStream(file);
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -273,15 +278,15 @@ public class profile_setting extends AppCompatActivity {
             String uid = auth.getCurrentUser().getUid();
             userRef.child("profilePic").setValue(picValue)
                     .addOnSuccessListener(aVoid -> {
-                        // Update SQLite immediately for persistence and dashboard sync
+                        // Update SQLite immediately
                         User localUser = dbHelper.getUser(uid);
                         if (localUser != null) {
                             localUser.profilePic = picValue;
                             dbHelper.saveUser(localUser, uid);
                         }
-                        // Local UI will be updated by the ValueEventListener in loadUserData
+                        Toast.makeText(profile_setting.this, "Profile picture updated locally", Toast.LENGTH_SHORT).show();
                     })
-                    .addOnFailureListener(e -> Toast.makeText(profile_setting.this, "Failed to update profile picture in database", Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(profile_setting.this, "Failed to update database", Toast.LENGTH_SHORT).show());
         }
     }
 }
