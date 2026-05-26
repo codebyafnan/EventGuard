@@ -289,7 +289,7 @@ public class profile_setting extends AppCompatActivity {
                             localUser.profilePic = picValue;
                             dbHelper.saveUser(localUser, uid);
                         }
-                        Toast.makeText(profile_setting.this, "Profile picture updated locally", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(profile_setting.this, "Profile picture updated", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> Toast.makeText(profile_setting.this, "Failed to update database", Toast.LENGTH_SHORT).show());
         }
