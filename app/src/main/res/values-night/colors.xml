@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Semantic Colors for Dark Mode -->
+    <color name="screen_background">#121212</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#B0B0B0</color>
+    <color name="hint_text">#808080</color>
+    <color name="edittext_background">#2C2C2C</color>
+    <color name="divider_color">#444444</color>
+
+    <!-- Refined Button and Field Colors for Dark Mode -->
+    <!-- Making these backgrounds even darker to ensure contrast with white text -->
+    <color name="secondary_button_bg">#000B36</color> <!-- Deep blue/black -->
+    <color name="secondary_button_stroke">#1A222F</color>
+    <color name="outline_button_bg">#000000</color>
+    <color name="outline_button_stroke">#FFFFFF</color>
+    <color name="locked_field_bg">#000000</color>
+    <color name="locked_field_stroke">#333333</color>
+</resources>

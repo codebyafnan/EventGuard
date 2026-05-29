@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:cardCornerRadius="14dp"
-    app:cardElevation="3dp">
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/card_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                 android:text="Event Title"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#111111"/>
+                android:textColor="@color/primary_text"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -43,13 +44,14 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/calender_logo" />
+                    android:src="@drawable/calender_logo"
+                    app:tint="@color/secondary_text"/>
                 <TextView
                     android:id="@+id/tvEventDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date"
-                    android:textColor="#555555"
+                    android:textColor="@color/secondary_text"
                     android:textSize="14sp"
                     android:layout_marginStart="8dp" />
             </LinearLayout>
@@ -63,13 +65,14 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/location_icon" />
+                    android:src="@drawable/location_icon"
+                    app:tint="@color/secondary_text"/>
                 <TextView
                     android:id="@+id/tvEventLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Location"
-                    android:textColor="#555555"
+                    android:textColor="@color/secondary_text"
                     android:textSize="14sp"
                     android:layout_marginStart="8dp" />
             </LinearLayout>
@@ -83,13 +86,14 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/people_icon" />
+                    android:src="@drawable/people_icon"
+                    app:tint="@color/secondary_text"/>
                 <TextView
                     android:id="@+id/tvEventSeats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0/0"
-                    android:textColor="#555555"
+                    android:textColor="@color/secondary_text"
                     android:textSize="14sp"
                     android:layout_marginStart="8dp" />
             </LinearLayout>
@@ -135,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Category"
-                    android:textColor="#111111"
+                    android:textColor="@color/primary_text"
                     android:textStyle="italic|bold"
                     android:textSize="14sp" />
             </LinearLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F5F7"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
     tools:context=".Dashboards.UserDashboard">
 
     <!-- SCROLLABLE CONTENT -->
@@ -58,6 +59,7 @@
                     android:layout_marginBottom="16dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/card_background"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
@@ -109,7 +111,7 @@
                             android:text="Alex Rivers"
                             android:textStyle="bold"
                             android:textSize="26sp"
-                            android:textColor="#0D1B2A"
+                            android:textColor="@color/primary_text"
                             android:layout_marginTop="16dp"/>
 
                         <TextView
@@ -128,7 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Joined January 2024 • 00 Events\nAttended"
-                            android:textColor="#555555"
+                            android:textColor="@color/secondary_text"
                             android:textSize="14sp"
                             android:gravity="center"
                             android:lineSpacingExtra="4dp"
@@ -185,13 +187,13 @@
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
                                     android:src="@drawable/icon_search"
-                                    app:tint="#0D1B2A"/>
+                                    app:tint="@color/primary_text"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Find Events"
-                                    android:textColor="#0D1B2A"
+                                    android:textColor="@color/primary_text"
                                     android:textStyle="bold"
                                     android:textSize="15sp"
                                     android:layout_marginStart="8dp"/>
@@ -209,6 +211,7 @@
                     android:layout_marginBottom="16dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/card_background"
                     app:cardUseCompatPadding="false">
 
                     <LinearLayout
@@ -225,7 +228,7 @@
                             android:text="00"
                             android:textStyle="bold"
                             android:textSize="38sp"
-                            android:textColor="#111111"/>
+                            android:textColor="@color/primary_text"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -233,7 +236,7 @@
                             android:text="ACTIVE TICKETS"
                             android:textStyle="bold"
                             android:textSize="12sp"
-                            android:textColor="#888888"/>
+                            android:textColor="@color/hint_text"/>
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -245,7 +248,7 @@
                     android:text="Profile Info"
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    android:textColor="#222222"
+                    android:textColor="@color/primary_text"
                     android:layout_marginBottom="10dp"/>
 
                 <!-- PROFILE INFO CARD -->
@@ -253,6 +256,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="@color/card_background"
                     app:cardUseCompatPadding="true"
                     app:cardElevation="2dp">
 
@@ -266,7 +270,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="EMAIL ADDRESS"
-                            android:textColor="#888888"
+                            android:textColor="@color/hint_text"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
@@ -276,14 +280,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="14dp"
                             android:text="email@example.com"
-                            android:textColor="#222222"
+                            android:textColor="@color/primary_text"
                             android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="BIO"
-                            android:textColor="#888888"
+                            android:textColor="@color/hint_text"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
@@ -293,14 +297,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="14dp"
                             android:text="Senior event coordinator with over 8 years of experience."
-                            android:textColor="#222222"
+                            android:textColor="@color/primary_text"
                             android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PHONE"
-                            android:textColor="#888888"
+                            android:textColor="@color/hint_text"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
@@ -310,14 +314,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="14dp"
                             android:text="+1 (555) 012-3456"
-                            android:textColor="#222222"
+                            android:textColor="@color/primary_text"
                             android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Country"
-                            android:textColor="#888888"
+                            android:textColor="@color/hint_text"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
@@ -327,7 +331,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="18dp"
                             android:text="San Francisco, CA"
-                            android:textColor="#222222"
+                            android:textColor="@color/primary_text"
                             android:textSize="14sp" />
 
                         <LinearLayout
@@ -342,14 +346,14 @@
                                 android:layout_width="18dp"
                                 android:layout_height="18dp"
                                 android:src="@drawable/icon_edit"
-                                app:tint="#000000" />
+                                app:tint="@color/primary_text" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:text="Edit Profile"
-                                android:textColor="#000000"
+                                android:textColor="@color/primary_text"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -369,7 +373,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/card_background"
         android:elevation="12dp"
         android:orientation="horizontal"
         android:paddingTop="4dp"

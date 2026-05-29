@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F5F7"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
     tools:context=".events.events_details">
 
     <!-- SCROLLABLE CONTENT -->
@@ -42,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/card_background">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -98,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="The annual summit focused on supply chain resilience and automation..."
-                            android:textColor="#444444"
+                            android:textColor="@color/secondary_text"
                             android:textSize="13sp"
                             android:lineSpacingExtra="2dp"/>
                     </LinearLayout>
@@ -107,7 +109,9 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp">
+                        android:layout_margin="16dp"
+                        app:cardBackgroundColor="@color/card_background"
+                        app:cardElevation="0dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -128,7 +132,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Location"
                                     android:textStyle="bold"
-                                    android:textColor="#555555"/>
+                                    android:textColor="@color/secondary_text"/>
 
                                 <TextView
                                     android:id="@+id/tvDetailLocation"
@@ -136,7 +140,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Metro Exhibition Center"
-                                    android:textColor="#111111"/>
+                                    android:textColor="@color/primary_text"/>
 
                             </LinearLayout>
 
@@ -153,7 +157,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Time"
                                     android:textStyle="bold"
-                                    android:textColor="#555555"/>
+                                    android:textColor="@color/secondary_text"/>
 
                                 <TextView
                                     android:id="@+id/tvDetailTime"
@@ -161,7 +165,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="09:00 AM"
-                                    android:textColor="#111111"/>
+                                    android:textColor="@color/primary_text"/>
 
                             </LinearLayout>
 
@@ -178,7 +182,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Date"
                                     android:textStyle="bold"
-                                    android:textColor="#555555"/>
+                                    android:textColor="@color/secondary_text"/>
 
                                 <TextView
                                     android:id="@+id/tvDetailDate"
@@ -186,7 +190,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Oct 24, 2026"
-                                    android:textColor="#111111"/>
+                                    android:textColor="@color/primary_text"/>
 
 
 
@@ -205,14 +209,15 @@
                                     android:layout_height="wrap_content"
                                     android:text="Seat/Zone"
                                     android:textStyle="bold"
-                                    android:textColor="#555555"/>
+                                    android:textColor="@color/secondary_text"/>
 
                                 <TextView
+                                    android:id="@+id/tvDetailTime"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Main Hall • A12"
-                                    android:textColor="#111111"/>
+                                    android:textColor="@color/primary_text"/>
 
 
 
@@ -283,7 +288,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/card_background"
         android:elevation="12dp"
         android:orientation="horizontal"
         android:paddingTop="4dp"

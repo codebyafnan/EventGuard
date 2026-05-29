@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/card_background"
     android:elevation="4dp"
     android:padding="16dp"
     tools:context=".events.dialog_filter">
@@ -21,7 +21,7 @@
             android:text="Status"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="#000B36"
+            android:textColor="@color/primary_text"
             android:layout_marginBottom="8dp"/>
 
         <CheckBox
@@ -29,21 +29,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registered"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <CheckBox
             android:id="@+id/cbJoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Join"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <CheckBox
             android:id="@+id/cbFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Full"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <!-- CATEGORY -->
         <TextView
@@ -52,7 +52,7 @@
             android:text="Category"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="#000B36"
+            android:textColor="@color/primary_text"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"/>
 
@@ -61,28 +61,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Workshop"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <CheckBox
             android:id="@+id/cbSeminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Seminar"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <CheckBox
             android:id="@+id/cbExhibition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exhibition"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <CheckBox
             android:id="@+id/cbHackathon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hackathon"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <!-- TIME RANGE -->
         <TextView
@@ -91,7 +91,7 @@
             android:text="Time Range"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="#000B36"
+            android:textColor="@color/primary_text"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"/>
 
@@ -100,14 +100,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="This Week"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <CheckBox
             android:id="@+id/cbMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="This Month"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <!-- SORT BY -->
         <TextView
@@ -116,7 +116,7 @@
             android:text="Sort By"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="#000B36"
+            android:textColor="@color/primary_text"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"/>
 
@@ -125,14 +125,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Newest First"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <CheckBox
             android:id="@+id/cbOldest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Oldest First"
-            android:textColor="#444444"/>
+            android:textColor="@color/secondary_text"/>
 
         <!-- DATE -->
         <TextView
@@ -141,15 +141,14 @@
             android:text="Select Date"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="#000B36"
+            android:textColor="@color/primary_text"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"/>
 
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:layout_height="300dp"/>
 
         <!-- BUTTON -->
         <Button
