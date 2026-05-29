@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F5F7"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
     tools:context=".Dashboards.security">
 
     <LinearLayout
@@ -45,7 +46,8 @@
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:src="@drawable/security_icon"/>
+                    android:src="@drawable/security_icon"
+                    app:tint="@color/primary_text"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -53,7 +55,7 @@
                     android:text="Security Settings"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    android:textColor="#222222"
+                    android:textColor="@color/primary_text"
                     android:layout_marginStart="8dp"/>
             </LinearLayout>
 
@@ -70,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Current Password"
-                    android:textColor="#777777"
+                    android:textColor="@color/secondary_text"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -78,7 +80,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:contentDescription="Toggle Password"
-                    android:src="@drawable/eye_close" />
+                    android:src="@drawable/eye_close"
+                    app:tint="@color/secondary_text"/>
             </LinearLayout>
 
             <EditText
@@ -91,6 +94,8 @@
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:hint="Enter Current Password"
+                android:textColorHint="@color/hint_text"
+                android:textColor="@color/primary_text"
                 android:inputType="textWebPassword"
                 android:padding="12dp"
                 android:textSize="14dp" />
@@ -110,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="New Password"
-                    android:textColor="#777777"
+                    android:textColor="@color/secondary_text"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -118,7 +123,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:contentDescription="Toggle Password"
-                    android:src="@drawable/eye_close" />
+                    android:src="@drawable/eye_close"
+                    app:tint="@color/secondary_text"/>
             </LinearLayout>
 
             <EditText
@@ -131,6 +137,8 @@
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:hint="Enter New Password"
+                android:textColorHint="@color/hint_text"
+                android:textColor="@color/primary_text"
                 android:inputType="textWebPassword"
                 android:padding="12dp"
                 android:textSize="14dp" />
@@ -150,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Confirm Password"
-                    android:textColor="#777777"
+                    android:textColor="@color/secondary_text"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -158,7 +166,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:contentDescription="Toggle Password"
-                    android:src="@drawable/eye_close" />
+                    android:src="@drawable/eye_close"
+                    app:tint="@color/secondary_text"/>
             </LinearLayout>
 
             <EditText
@@ -171,6 +180,8 @@
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:hint="Enter Confirm Password"
+                android:textColorHint="@color/hint_text"
+                android:textColor="@color/primary_text"
                 android:inputType="textWebPassword"
                 android:padding="12dp"
                 android:textSize="14dp" />
@@ -216,7 +227,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/card_background"
         android:elevation="12dp"
         android:orientation="horizontal"
         android:paddingTop="4dp"

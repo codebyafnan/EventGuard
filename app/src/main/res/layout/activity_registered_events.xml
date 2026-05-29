@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F5F7"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
     tools:context=".tickets.registered_events">
 
     <!-- SCROLLABLE CONTENT -->
@@ -50,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Registered Events"
-                    android:textColor="#111111"
+                    android:textColor="@color/primary_text"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
@@ -58,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Access your event passes quickly"
-                    android:textColor="#7A7A7A"
+                    android:textColor="@color/secondary_text"
                     android:textSize="14sp"
                     android:layout_marginTop="4dp" />
 
@@ -81,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/card_background"
         android:elevation="12dp"
         android:orientation="horizontal"
         android:paddingTop="4dp"

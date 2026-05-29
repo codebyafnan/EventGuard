@@ -7,7 +7,8 @@
     android:layout_marginTop="12dp"
     android:layout_marginBottom="4dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="3dp">
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/card_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
-            android:background="#F0F0F0" />
+            android:background="@color/edittext_background" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Event Title"
-                android:textColor="#111111"
+                android:textColor="@color/primary_text"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:ellipsize="end"
@@ -54,14 +55,14 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:src="@drawable/calender_logo"
-                    app:tint="#777777" />
+                    app:tint="@color/secondary_text" />
 
                 <TextView
                     android:id="@+id/tvEventDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date"
-                    android:textColor="#777777"
+                    android:textColor="@color/secondary_text"
                     android:textSize="13sp"
                     android:layout_marginStart="6dp" />
 

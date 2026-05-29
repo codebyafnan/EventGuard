@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Semantic Colors -->
+    <color name="screen_background">#F4F5F7</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="primary_text">#0D1B2A</color>
+    <color name="secondary_text">#555555</color>
+    <color name="hint_text">#888888</color>
+    <color name="edittext_background">#F4F4F4</color>
+    <color name="divider_color">#CCCCCC</color>
+
+    <!-- Button and Field Colors (Light Mode) -->
+    <color name="secondary_button_bg">#E8F1FF</color>
+    <color name="secondary_button_stroke">#D0DDEB</color>
+    <color name="outline_button_bg">#F8F9FF</color>
+    <color name="outline_button_stroke">#000000</color>
+    <color name="locked_field_bg">#F0F3F9</color>
+    <color name="locked_field_stroke">#DDE4ED</color>
+
     <color name="icon_bg">#051735</color>
     <color name="nav_icon_bg">#000B36</color>
-
-
 </resources>

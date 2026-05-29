@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F5F7"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
     tools:context=".Dashboards.profile_setting">
 
     <ScrollView
@@ -59,7 +60,8 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="50dp"
-                            app:cardElevation="4dp">
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/card_background">
 
                             <ImageView
                                 android:id="@+id/ivProfileLarge"
@@ -90,7 +92,7 @@
                         android:text="Alex Rivers"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:textColor="#0D1B2A"
+                        android:textColor="@color/primary_text"
                         android:layout_marginTop="12dp"/>
 
                     <TextView
@@ -118,7 +120,7 @@
                         android:text="SELECT AVATAR"
                         android:textStyle="bold"
                         android:textSize="12sp"
-                        android:textColor="#666666"/>
+                        android:textColor="@color/hint_text"/>
                 </LinearLayout>
 
                 <HorizontalScrollView
@@ -142,7 +144,7 @@
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:src="@drawable/icon_edit"
-                                app:tint="#666666"/>
+                                app:tint="@color/hint_text"/>
                         </LinearLayout>
 
                         <!-- Avatar Default (user_profile) -->
@@ -199,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:text="Full Name"
                     android:textStyle="bold"
-                    android:textColor="#0D1B2A"
+                    android:textColor="@color/primary_text"
                     android:layout_marginBottom="8dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -212,13 +214,15 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/icon_name"
-                        app:tint="#888888"/>
+                        app:tint="@color/hint_text"/>
                     <EditText
                         android:id="@+id/etName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="Full Name"
+                        android:textColorHint="@color/hint_text"
+                        android:textColor="@color/primary_text"
                         android:textSize="15sp"
                         android:paddingStart="12dp"
                         android:inputType="textPersonName"/>
@@ -229,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:text="Email Address"
                     android:textStyle="bold"
-                    android:textColor="#0D1B2A"
+                    android:textColor="@color/primary_text"
                     android:layout_marginBottom="8dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,7 +246,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/icon_email"
-                        app:tint="#888888"/>
+                        app:tint="@color/hint_text"/>
                     <EditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
@@ -251,7 +255,7 @@
                         android:enabled="false"
                         android:textSize="15sp"
                         android:paddingStart="12dp"
-                        android:textColor="#555555"/>
+                        android:textColor="@color/secondary_text"/>
                 </LinearLayout>
 
                 <TextView
@@ -259,7 +263,7 @@
                     android:layout_height="wrap_content"
                     android:text="Bio"
                     android:textStyle="bold"
-                    android:textColor="#0D1B2A"
+                    android:textColor="@color/primary_text"
                     android:layout_marginBottom="8dp"/>
                 <EditText
                     android:id="@+id/etBio"
@@ -269,6 +273,8 @@
                     android:gravity="top"
                     android:padding="12dp"
                     android:hint="Tell us about yourself..."
+                    android:textColorHint="@color/hint_text"
+                    android:textColor="@color/primary_text"
                     android:textSize="14sp"
                     android:layout_marginBottom="16dp"/>
 
@@ -277,7 +283,7 @@
                     android:layout_height="wrap_content"
                     android:text="Phone"
                     android:textStyle="bold"
-                    android:textColor="#0D1B2A"
+                    android:textColor="@color/primary_text"
                     android:layout_marginBottom="8dp"/>
                 <EditText
                     android:id="@+id/etPhone"
@@ -286,6 +292,8 @@
                     android:background="@drawable/edittext_bg"
                     android:paddingHorizontal="12dp"
                     android:hint="Phone Number"
+                    android:textColorHint="@color/hint_text"
+                    android:textColor="@color/primary_text"
                     android:inputType="phone"
                     android:textSize="15sp"
                     android:layout_marginBottom="16dp"/>
@@ -295,7 +303,7 @@
                     android:layout_height="wrap_content"
                     android:text="Country"
                     android:textStyle="bold"
-                    android:textColor="#0D1B2A"
+                    android:textColor="@color/primary_text"
                     android:layout_marginBottom="8dp"/>
                 <EditText
                     android:id="@+id/etCountry"
@@ -304,6 +312,8 @@
                     android:background="@drawable/edittext_bg"
                     android:paddingHorizontal="12dp"
                     android:hint="Country"
+                    android:textColorHint="@color/hint_text"
+                    android:textColor="@color/primary_text"
                     android:textSize="15sp"
                     android:layout_marginBottom="24dp"/>
 
@@ -316,13 +326,13 @@
                         android:layout_height="wrap_content"
                         android:text="Account Role"
                         android:textStyle="bold"
-                        android:textColor="#666666"/>
+                        android:textColor="@color/hint_text"/>
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/security_icon"
-                        app:tint="#888888"/>
+                        app:tint="@color/hint_text"/>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -336,7 +346,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/verify_icon"
-                        app:tint="#888888"/>
+                        app:tint="@color/hint_text"/>
                     <TextView
                         android:id="@+id/tvAccountRole"
                         android:layout_width="match_parent"
@@ -344,7 +354,7 @@
                         android:gravity="center_vertical"
                         android:paddingStart="12dp"
                         android:text="Attendee"
-                        android:textColor="#555555"
+                        android:textColor="@color/secondary_text"
                         android:textSize="15sp"/>
                 </LinearLayout>
 
@@ -385,20 +395,20 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/security_icon"
-                        app:tint="#0D1B2A"/>
+                        app:tint="@color/primary_text"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Security Settings"
-                        android:textColor="#0D1B2A"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:layout_marginStart="12dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=">"
-                        android:textColor="#0D1B2A"
+                        android:textColor="@color/primary_text"
                         android:textSize="18sp"/>
                 </LinearLayout>
 
@@ -444,7 +454,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/card_background"
         android:elevation="12dp"
         android:orientation="horizontal"
         android:paddingTop="4dp"

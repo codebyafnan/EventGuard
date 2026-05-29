@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F5F7"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
     tools:context=".events.events">
 
     <!-- SCROLLABLE CONTENT -->
@@ -50,6 +51,8 @@
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
                     android:hint="Search for events...."
+                    android:textColorHint="@color/hint_text"
+                    android:textColor="@color/primary_text"
                     android:padding="12dp"
                     android:textSize="14dp" />
 
@@ -72,6 +75,7 @@
                 android:layout_marginHorizontal="14dp"
                 app:cardElevation="4dp"
                 app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/card_background"
                 android:layout_marginBottom="8dp">
 
                 <ScrollView
@@ -90,14 +94,14 @@
                             android:layout_height="wrap_content"
                             android:text="Status"
                             android:textStyle="bold"
-                            android:textColor="#000B36"/>
+                            android:textColor="@color/primary_text"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                            <CheckBox android:id="@+id/cbRegistered" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Registered"/>
-                            <CheckBox android:id="@+id/cbJoin" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Join"/>
-                            <CheckBox android:id="@+id/cbFull" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Full"/>
+                            <CheckBox android:id="@+id/cbRegistered" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Registered" android:textColor="@color/primary_text"/>
+                            <CheckBox android:id="@+id/cbJoin" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Join" android:textColor="@color/primary_text"/>
+                            <CheckBox android:id="@+id/cbFull" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Full" android:textColor="@color/primary_text"/>
                         </LinearLayout>
 
                         <TextView
@@ -105,16 +109,16 @@
                             android:layout_height="wrap_content"
                             android:text="Category"
                             android:textStyle="bold"
-                            android:textColor="#000B36"
+                            android:textColor="@color/primary_text"
                             android:layout_marginTop="8dp"/>
                         <GridLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:columnCount="2">
-                            <CheckBox android:id="@+id/cbWorkshop" android:text="Workshop"/>
-                            <CheckBox android:id="@+id/cbSeminar" android:text="Seminar"/>
-                            <CheckBox android:id="@+id/cbExhibition" android:text="Exhibition"/>
-                            <CheckBox android:id="@+id/cbHackathon" android:text="Hackathon"/>
+                            <CheckBox android:id="@+id/cbWorkshop" android:text="Workshop" android:textColor="@color/primary_text"/>
+                            <CheckBox android:id="@+id/cbSeminar" android:text="Seminar" android:textColor="@color/primary_text"/>
+                            <CheckBox android:id="@+id/cbExhibition" android:text="Exhibition" android:textColor="@color/primary_text"/>
+                            <CheckBox android:id="@+id/cbHackathon" android:text="Hackathon" android:textColor="@color/primary_text"/>
                         </GridLayout>
 
                         <TextView
@@ -122,13 +126,12 @@
                             android:layout_height="wrap_content"
                             android:text="Select Date"
                             android:textStyle="bold"
-                            android:textColor="#000B36"
+                            android:textColor="@color/primary_text"
                             android:layout_marginTop="8dp"/>
                         <CalendarView
                             android:id="@+id/calendarFilter"
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:theme="@style/Theme.AppCompat.Light"/>
+                            android:layout_height="300dp"/>
 
                         <Button
                             android:id="@+id/btnApplyFilter"
@@ -156,7 +159,7 @@
                 android:gravity="center"
                 android:layout_marginTop="50dp"
                 android:textSize="16sp"
-                android:textColor="#888888"
+                android:textColor="@color/hint_text"
                 android:visibility="gone"/>
 
 
@@ -169,7 +172,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/card_background"
         android:elevation="12dp"
         android:orientation="horizontal"
         android:paddingTop="4dp"
