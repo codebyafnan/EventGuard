@@ -48,9 +48,15 @@ public class UserDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.bottomNav), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
+            return insets;
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -63,7 +69,7 @@ public class UserDashboard extends AppCompatActivity {
             return;
         }
 
-        dbHelper = new DatabaseHelper(this);
+        dbHelper = DatabaseHelper.getInstance(this);
         userRef = FirebaseDatabase.getInstance("https://eventguard-601b6-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Users").child(currentUser.getUid());
         registrationsRef = FirebaseDatabase.getInstance("https://eventguard-601b6-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -160,9 +166,9 @@ public class UserDashboard extends AppCompatActivity {
 
                 String totalCountStr = String.format(Locale.getDefault(), "%02d", totalCount);
                 currentAttendedCountStr = String.format(Locale.getDefault(), "%02d", attendedCount);
-                
+
                 tvDashTicketCount.setText(totalCountStr);
-                
+
                 // Update the joined events text with the actual attended count
                 String fullText = "Joined " + currentJoinedDateFormatted + " • " + currentAttendedCountStr + " Events\nAttended";
                 tvDashJoinedEvents.setText(fullText);
@@ -187,7 +193,7 @@ public class UserDashboard extends AppCompatActivity {
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMMM yyyy", java.util.Locale.getDefault());
             currentJoinedDateFormatted = sdf.format(new java.util.Date(user.joinedDate));
         }
-        
+
         // Initial update with current count
         String fullText = "Joined " + currentJoinedDateFormatted + " • " + currentAttendedCountStr + " Events\nAttended";
         tvDashJoinedEvents.setText(fullText);
@@ -195,7 +201,7 @@ public class UserDashboard extends AppCompatActivity {
         // Load Profile Picture
         // First check for local file with user ID
         File localFile = new File(getFilesDir(), "profile_" + userId + ".jpg");
-        
+
         if (user.profilePic != null && (user.profilePic.equals("user_profile") || user.profilePic.equals("male_profile") || user.profilePic.equals("female_profile"))) {
             // User selected a default avatar
             int resId = getResources().getIdentifier(user.profilePic, "drawable", getPackageName());

@@ -25,6 +25,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PROFILE_PIC = "profile_pic";
     private static final String COLUMN_JOINED_DATE = "joined_date";
 
+    private static DatabaseHelper instance;
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return instance;
+    }
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
