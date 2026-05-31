@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class events_details extends AppCompatActivity {
 
-    private String eventId, eventTitle, eventDate, eventDesc, eventLoc, eventTime, imageUrl;
+    private String eventId, eventTitle, eventDate, eventDesc, eventLoc, eventTime, imageUrl, status;
     private long eventTimestamp;
     private int currentParticipants, maxParticipants;
     private boolean isRegistered;
@@ -61,6 +61,7 @@ public class events_details extends AppCompatActivity {
         currentParticipants = getIntent().getIntExtra("currentParticipants", 0);
         maxParticipants = getIntent().getIntExtra("maxParticipants", 0);
         isRegistered = getIntent().getBooleanExtra("isRegistered", false);
+        status = getIntent().getStringExtra("status");
 
         TextView tvTitle = findViewById(R.id.tvDetailTitle);
         TextView tvDesc = findViewById(R.id.tvDetailDesc);
@@ -91,6 +92,10 @@ public class events_details extends AppCompatActivity {
         LinearLayout btnRegister = findViewById(R.id.btnSaveSecurity);
         LinearLayout btnCancel = findViewById(R.id.btnCancle);
 
+        long currentTime = System.currentTimeMillis();
+        long oneDayMillis = 24 * 60 * 60 * 1000;
+        boolean isClosed = "Closed".equalsIgnoreCase(status) || (currentTime >= (eventTimestamp - oneDayMillis));
+
         if (isRegistered) {
             tvRegisterText.setText("Already Registered");
             tvStatus.setText("Registered");
@@ -98,6 +103,14 @@ public class events_details extends AppCompatActivity {
             tvStatus.setTextColor(getResources().getColor(R.color.status_green_text));
             btnRegister.setVisibility(View.GONE);
             btnCancel.setVisibility(View.VISIBLE);
+        } else if (isClosed) {
+            tvRegisterText.setText("Registration Closed");
+            tvStatus.setText("Closed");
+            tvStatus.setBackgroundResource(R.drawable.blue_badge);
+            tvStatus.setTextColor(getResources().getColor(R.color.status_blue_text));
+            btnRegister.setEnabled(false);
+            btnRegister.setAlpha(0.6f);
+            btnCancel.setVisibility(View.GONE);
         } else if (currentParticipants >= maxParticipants) {
             tvRegisterText.setText("Event Full");
             tvStatus.setText("Full");
@@ -222,7 +235,18 @@ public class events_details extends AppCompatActivity {
 
                             if (event.currentParticipants > 0) {
                                 event.currentParticipants = event.currentParticipants - 1;
-                                event.status = "Available";
+                                
+                                // Re-evaluate status based on new count and time
+                                long currentTime = System.currentTimeMillis();
+                                long oneDayMillis = 24 * 60 * 60 * 1000;
+                                
+                                if (!"Closed".equalsIgnoreCase(event.status)) {
+                                    if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+                                        event.status = "Closed";
+                                    } else {
+                                        event.status = "Available";
+                                    }
+                                }
                             }
                             mutableData.setValue(event);
                             return com.google.firebase.database.Transaction.success(mutableData);
@@ -258,14 +282,24 @@ public class events_details extends AppCompatActivity {
                     return com.google.firebase.database.Transaction.success(mutableData);
                 }
 
+                if ("Closed".equalsIgnoreCase(event.status)) {
+                    return com.google.firebase.database.Transaction.abort();
+                }
+
                 if (event.currentParticipants >= event.maxParticipants) {
                     return com.google.firebase.database.Transaction.abort();
                 }
 
                 // Increment participants
                 event.currentParticipants = event.currentParticipants + 1;
+                
+                long currentTime = System.currentTimeMillis();
+                long oneDayMillis = 24 * 60 * 60 * 1000;
+
                 if (event.currentParticipants >= event.maxParticipants) {
                     event.status = "Full";
+                } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+                    event.status = "Closed";
                 }
                 
                 mutableData.setValue(event);

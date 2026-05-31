@@ -198,61 +198,6 @@
                     android:layout_marginBottom="16dp"
                     android:inputType="number"/>
 
-                <!-- Image Section -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Event Banner *"
-                    android:textColor="@color/primary_text"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="16dp">
-
-                    <ImageView
-                        android:id="@+id/ivEventPreview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/edittext_bg"
-                        android:src="@drawable/event_detail_banner"/>
-
-                    <LinearLayout
-                        android:id="@+id/btnSelectImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="#80000000"
-                        android:padding="12dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/icon_edit"
-                            app:tint="#FFFFFF"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Change Image"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/etImageUrl"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/edittext_bg"
-                    android:hint="Or paste image URL"
-                    android:padding="12dp"
-                    android:layout_marginBottom="24dp"
-                    android:inputType="textUri"/>
-
                 <!-- Submit Button -->
                 <Button
                     android:id="@+id/btnSubmitEvent"

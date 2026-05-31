@@ -194,10 +194,37 @@ public class qr_pass extends AppCompatActivity {
 
     private void generateStaticQR() {
         // Simple registration ID as content for offline verification
-        qrBitmap = QRCodeHelper.generateQRCode(registrationId);
-        if (qrBitmap != null) {
-            ivQRCode.setImageBitmap(qrBitmap);
-        }
+        // But for scanner validation, we need more info
+        registrationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Registration reg = snapshot.getValue(Registration.class);
+                if (reg != null) {
+                    try {
+                        org.json.JSONObject json = new org.json.JSONObject();
+                        json.put("type", "EventGuardPass");
+                        json.put("registrationId", reg.registrationId);
+                        json.put("eventId", reg.eventId);
+                        json.put("userId", reg.userId);
+                        
+                        qrBitmap = QRCodeHelper.generateQRCode(json.toString());
+                        if (qrBitmap != null) {
+                            ivQRCode.setImageBitmap(qrBitmap);
+                        }
+                    } catch (org.json.JSONException e) {
+                        e.printStackTrace();
+                        // Fallback
+                        qrBitmap = QRCodeHelper.generateQRCode(registrationId);
+                        if (qrBitmap != null) {
+                            ivQRCode.setImageBitmap(qrBitmap);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
     }
 
     private void downloadTicket() {

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,9 @@
         <!-- Scanner -->
         <activity
             android:name=".OrganizerModule.Scanner.OrganizerScanner"
+            android:exported="false" />
+        <activity
+            android:name=".OrganizerModule.Scanner.ScannerRegisteredEvents"
             android:exported="false" /> <!-- Organizer Dashboard -->
         <activity
             android:name=".OrganizerModule.Dashboard.OrganizerAnalytics"

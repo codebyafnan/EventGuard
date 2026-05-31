@@ -43,7 +43,23 @@ public class OrganizerEventAdapter extends RecyclerView.Adapter<OrganizerEventAd
         holder.tvCategory.setText(event.category);
         holder.tvLocation.setText(event.location);
         holder.tvSeats.setText(event.currentParticipants + "/" + event.maxParticipants);
-        holder.tvStatus.setText(event.status);
+
+        // Determine effective status based on time and capacity
+        long currentTime = System.currentTimeMillis();
+        long oneDayMillis = 24 * 60 * 60 * 1000;
+        String displayStatus = event.status;
+
+        if ("Closed".equalsIgnoreCase(event.status)) {
+            displayStatus = "Closed";
+        } else if (event.currentParticipants >= event.maxParticipants) {
+            displayStatus = "Full";
+        } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+            displayStatus = "Closed";
+        } else if ("Registration Open".equalsIgnoreCase(event.status) || "Available".equalsIgnoreCase(event.status)) {
+            displayStatus = "Open";
+        }
+
+        holder.tvStatus.setText(displayStatus);
 
         if (event.imageUrl != null && !event.imageUrl.isEmpty()) {
             Glide.with(context)
@@ -53,12 +69,15 @@ public class OrganizerEventAdapter extends RecyclerView.Adapter<OrganizerEventAd
         }
 
         // Styling status based on text
-        if ("Full".equalsIgnoreCase(event.status)) {
+        if ("Full".equalsIgnoreCase(displayStatus)) {
             holder.tvStatus.setBackgroundResource(R.drawable.red_badge);
-        } else if ("Tentative".equalsIgnoreCase(event.status)) {
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_red_text));
+        } else if ("Closed".equalsIgnoreCase(displayStatus)) {
             holder.tvStatus.setBackgroundResource(R.drawable.blue_badge);
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_blue_text));
         } else {
             holder.tvStatus.setBackgroundResource(R.drawable.green_badge);
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_green_text));
         }
 
         holder.btnManage.setOnClickListener(v -> {

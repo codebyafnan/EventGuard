@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eventguard.OrganizerModule.Scanner.OrganizerScanner;
+import com.example.eventguard.OrganizerModule.Scanner.ScannerRegisteredEvents;
 import com.example.eventguard.OrganizerModule.Dashboard.CreateEventActivity;
 import com.example.eventguard.OrganizerModule.Dashboard.OrganizerDashboard;
 import com.example.eventguard.UserModule.Profile.profile_setting;
@@ -42,7 +43,7 @@ public class OrganizerEvents extends AppCompatActivity {
 
     private EditText etSearch;
     private CardView filterSection;
-    private CheckBox cbRegistered, cbJoin, cbFull;
+    private CheckBox cbOpen, cbClosed, cbFull;
     private CheckBox cbWorkshop, cbSeminar, cbExhibition, cbHackathon;
     private android.widget.CalendarView calendarFilter;
 
@@ -74,8 +75,8 @@ public class OrganizerEvents extends AppCompatActivity {
         ImageButton btnFilter = findViewById(R.id.btnFilter);
         Button btnApplyFilter = findViewById(R.id.btnApplyFilter);
 
-        cbRegistered = findViewById(R.id.cbRegistered);
-        cbJoin = findViewById(R.id.cbJoin);
+        cbOpen = findViewById(R.id.cbOpen);
+        cbClosed = findViewById(R.id.cbClosed);
         cbFull = findViewById(R.id.cbFull);
 
         cbWorkshop = findViewById(R.id.cbWorkshop);
@@ -124,11 +125,11 @@ public class OrganizerEvents extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.navEvents).setOnClickListener(v -> {}); // Already here
+        findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, OrganizerEvents.class)));
         findViewById(R.id.navDashboard).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, OrganizerDashboard.class)));
         findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, profile_setting.class)));
         findViewById(R.id.navScanner).setOnClickListener(v -> {
-            startActivity(new Intent(OrganizerEvents.this, OrganizerScanner.class));
+            startActivity(new Intent(OrganizerEvents.this, ScannerRegisteredEvents.class));
         });
 
         calendarFilter.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
@@ -164,9 +165,9 @@ public class OrganizerEvents extends AppCompatActivity {
         String query = etSearch.getText().toString().toLowerCase().trim();
 
         boolean fFull = cbFull.isChecked();
-        boolean fJoin = cbJoin.isChecked();
-        boolean fRegistered = cbRegistered.isChecked();
-        boolean noStatusFilter = !fFull && !fJoin && !fRegistered;
+        boolean fClosed = cbClosed.isChecked();
+        boolean fOpen = cbOpen.isChecked();
+        boolean noStatusFilter = !fFull && !fClosed && !fOpen;
 
         boolean fWorkshop = cbWorkshop.isChecked();
         boolean fSeminar = cbSeminar.isChecked();
@@ -174,16 +175,31 @@ public class OrganizerEvents extends AppCompatActivity {
         boolean fHackathon = cbHackathon.isChecked();
         boolean noCategoryFilter = !fWorkshop && !fSeminar && !fExhibition && !fHackathon;
 
+        long currentTime = System.currentTimeMillis();
+        long oneDayMillis = 24 * 60 * 60 * 1000;
+
         filteredEvents.clear();
         for (Event event : allEvents) {
             boolean matchesSearch = event.title.toLowerCase().contains(query) ||
                                   (event.location != null && event.location.toLowerCase().contains(query));
 
+            // Determine effective status based on time and capacity
+            String effectiveStatus = event.status;
+            if ("Closed".equalsIgnoreCase(event.status)) {
+                effectiveStatus = "Closed";
+            } else if (event.currentParticipants >= event.maxParticipants) {
+                effectiveStatus = "Full";
+            } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+                effectiveStatus = "Closed";
+            } else if ("Available".equalsIgnoreCase(event.status) || "Registration Open".equalsIgnoreCase(event.status)) {
+                effectiveStatus = "Open";
+            }
+
             boolean matchesStatus = noStatusFilter;
             if (!noStatusFilter) {
-                if (fFull && "Full".equalsIgnoreCase(event.status)) matchesStatus = true;
-                if (fJoin && "Available".equalsIgnoreCase(event.status)) matchesStatus = true;
-                if (fRegistered && "Registration Open".equalsIgnoreCase(event.status)) matchesStatus = true;
+                if (fFull && "Full".equalsIgnoreCase(effectiveStatus)) matchesStatus = true;
+                if (fClosed && "Closed".equalsIgnoreCase(effectiveStatus)) matchesStatus = true;
+                if (fOpen && "Open".equalsIgnoreCase(effectiveStatus)) matchesStatus = true;
             }
 
             boolean matchesCategory = noCategoryFilter ||

@@ -8,15 +8,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-import com.bumptech.glide.Glide;
 import com.example.eventguard.OrganizerModule.OrganizerEvents.OrganizerEvents;
 import com.example.eventguard.OrganizerModule.Scanner.OrganizerScanner;
 import com.example.eventguard.UserModule.Profile.profile_setting;
@@ -34,12 +36,10 @@ import java.util.Locale;
 
 public class CreateEventActivity extends AppCompatActivity {
 
-    private EditText etName, etDescription, etDate, etTime, etVenue, etMaxCapacity, etImageUrl;
+    private EditText etName, etDescription, etDate, etTime, etVenue, etMaxCapacity;
     private Spinner spinnerCategory;
     private Button btnSubmit;
     private TextView tvFormTitle;
-    private ImageView ivEventPreview;
-    private View btnSelectImage;
 
     private DatabaseReference eventsRef;
     private String eventId;
@@ -49,7 +49,14 @@ public class CreateEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_event);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.bottomNav), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
+            return insets;
+        });
 
         eventsRef = FirebaseDatabase.getInstance("https://eventguard-601b6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Events");
 
@@ -85,24 +92,6 @@ public class CreateEventActivity extends AppCompatActivity {
             startActivity(new Intent(this, OrganizerScanner.class));
             finish();
         });
-
-        etImageUrl.addTextChangedListener(new android.text.TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(android.text.Editable s) {
-                String url = s.toString().trim();
-                if (!url.isEmpty()) {
-                    Glide.with(CreateEventActivity.this)
-                            .load(url)
-                            .placeholder(R.drawable.event_detail_banner)
-                            .error(R.drawable.event_detail_banner)
-                            .into(ivEventPreview);
-                }
-            }
-        });
     }
 
     private void initViews() {
@@ -113,11 +102,8 @@ public class CreateEventActivity extends AppCompatActivity {
         etTime = findViewById(R.id.etEventTime);
         etVenue = findViewById(R.id.etEventVenue);
         etMaxCapacity = findViewById(R.id.etMaxCapacity);
-        etImageUrl = findViewById(R.id.etImageUrl);
         spinnerCategory = findViewById(R.id.spinnerCategory);
         btnSubmit = findViewById(R.id.btnSubmitEvent);
-        ivEventPreview = findViewById(R.id.ivEventPreview);
-        btnSelectImage = findViewById(R.id.btnSelectImage);
     }
 
     private void setupCategorySpinner() {
@@ -167,15 +153,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     etTime.setText(existingEvent.time);
                     etVenue.setText(existingEvent.location);
                     etMaxCapacity.setText(String.valueOf(existingEvent.maxParticipants));
-                    etImageUrl.setText(existingEvent.imageUrl);
 
-                    if (existingEvent.imageUrl != null && !existingEvent.imageUrl.isEmpty()) {
-                        Glide.with(CreateEventActivity.this)
-                                .load(existingEvent.imageUrl)
-                                .placeholder(R.drawable.event_detail_banner)
-                                .into(ivEventPreview);
-                    }
-                    
                     // Set spinner selection
                     ArrayAdapter adapter = (ArrayAdapter) spinnerCategory.getAdapter();
                     int position = adapter.getPosition(existingEvent.category);
@@ -196,7 +174,6 @@ public class CreateEventActivity extends AppCompatActivity {
         String venue = etVenue.getText().toString().trim();
         String capacityStr = etMaxCapacity.getText().toString().trim();
         String category = spinnerCategory.getSelectedItem().toString();
-        String imageUrl = etImageUrl.getText().toString().trim();
 
         if (name.isEmpty() || desc.isEmpty() || date.isEmpty() || time.isEmpty() || venue.isEmpty() || capacityStr.isEmpty()) {
             Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show();
@@ -205,19 +182,40 @@ public class CreateEventActivity extends AppCompatActivity {
 
         int maxCapacity = Integer.parseInt(capacityStr);
         int currentParticipants = isUpdate ? existingEvent.currentParticipants : 0;
+        
+        long timestamp = 0;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.getDefault());
+            String dateTimeStr = date + " " + (time.isEmpty() ? "12:00 AM" : time);
+            timestamp = sdf.parse(dateTimeStr).getTime();
+        } catch (Exception e) {
+            timestamp = System.currentTimeMillis() + (7 * 24 * 60 * 60 * 1000); // Fallback
+        }
+
         String status = isUpdate ? existingEvent.status : "Available";
-        if (currentParticipants >= maxCapacity) status = "Full";
+        
+        long oneDayMillis = 24 * 60 * 60 * 1000;
+        long currentTime = System.currentTimeMillis();
+        
+        if (currentParticipants >= maxCapacity) {
+            status = "Full";
+        } else if (currentTime >= (timestamp - oneDayMillis)) {
+            status = "Closed";
+        } else if (!"Closed".equalsIgnoreCase(status)) {
+            status = "Available";
+        }
 
         String id = isUpdate ? eventId : eventsRef.push().getKey();
-        
-        // Simplified timestamp logic for demo
-        long timestamp = System.currentTimeMillis(); 
+        String imageUrl = isUpdate ? existingEvent.imageUrl : ""; // Carry forward or empty
 
         Event event = new Event(id, name, date, time, category, venue, desc, imageUrl, currentParticipants, maxCapacity, status, timestamp);
 
         eventsRef.child(id).setValue(event).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(CreateEventActivity.this, "Event saved successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CreateEventActivity.this, OrganizerEvents.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 finish();
             } else {
                 Toast.makeText(CreateEventActivity.this, "Failed to save event", Toast.LENGTH_SHORT).show();

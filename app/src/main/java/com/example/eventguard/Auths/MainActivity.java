@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void redirectBasedOnRole(String role) {
-        if ("admin".equals(role)) {
+        if ("organizer".equals(role) || "admin".equals(role)) {
             startActivity(new Intent(MainActivity.this, com.example.eventguard.OrganizerModule.OrganizerEvents.OrganizerEvents.class));
         } else {
             startActivity(new Intent(MainActivity.this, events.class));

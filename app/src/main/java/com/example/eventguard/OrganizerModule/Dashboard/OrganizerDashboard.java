@@ -17,6 +17,7 @@ import com.example.eventguard.Auths.DatabaseHelper;
 import com.example.eventguard.Auths.Login;
 import com.example.eventguard.OrganizerModule.OrganizerEvents.OrganizerEvents;
 import com.example.eventguard.OrganizerModule.Scanner.OrganizerScanner;
+import com.example.eventguard.OrganizerModule.Scanner.ScannerRegisteredEvents;
 import com.example.eventguard.R;
 import com.example.eventguard.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -87,12 +88,12 @@ public class OrganizerDashboard extends AppCompatActivity {
 
         // Navigation
         findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
-        findViewById(R.id.navScanner).setOnClickListener(v -> startActivity(new Intent(this, OrganizerScanner.class)));
+        findViewById(R.id.navScanner).setOnClickListener(v -> startActivity(new Intent(this, ScannerRegisteredEvents.class)));
         findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, profile_setting.class)));
         // Dashboard is current
 
         findViewById(R.id.btnFindEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
-        findViewById(R.id.btnScanner).setOnClickListener(v -> startActivity(new Intent(this, OrganizerScanner.class)));
+        findViewById(R.id.btnScanner).setOnClickListener(v -> startActivity(new Intent(this, ScannerRegisteredEvents.class)));
         findViewById(R.id.btnAnalytics).setOnClickListener(v -> startActivity(new Intent(this, OrganizerAnalyticsList.class)));
 
         loadAdminData(currentUser.getUid());

@@ -147,33 +147,133 @@
                         android:padding="16dp"
                         android:useDefaultMargins="true">
 
-                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
-                            <TextView android:text="CATEGORY" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
-                            <TextView android:id="@+id/tvDetailCategory" android:text="Workshop" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CATEGORY"
+                                android:textSize="11sp"
+                                android:textColor="@color/secondary_text"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvDetailCategory"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Workshop"
+                                android:textColor="@color/primary_text"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
                         </LinearLayout>
 
-                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
-                            <TextView android:text="CAPACITY" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
-                            <TextView android:id="@+id/tvDetailCapacity" android:text="0/0" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CAPACITY"
+                                android:textSize="11sp"
+                                android:textColor="@color/secondary_text"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvDetailCapacity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0/0"
+                                android:textColor="@color/primary_text"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
                         </LinearLayout>
 
-                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
-                            <TextView android:text="DATE" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
-                            <TextView android:id="@+id/tvDetailDate" android:text="Oct 28, 2026" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="DATE"
+                                android:textSize="11sp"
+                                android:textColor="@color/secondary_text"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvDetailDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Oct 28, 2026"
+                                android:textColor="@color/primary_text"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
                         </LinearLayout>
 
-                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
-                            <TextView android:text="TIME" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
-                            <TextView android:id="@+id/tvDetailTime" android:text="09:00 AM" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TIME"
+                                android:textSize="11sp"
+                                android:textColor="@color/secondary_text"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvDetailTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="09:00 AM"
+                                android:textColor="@color/primary_text"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
                         </LinearLayout>
 
-                        <LinearLayout android:orientation="vertical" android:layout_columnSpan="2" android:layout_marginBottom="12dp">
-                            <TextView android:text="LOCATION" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
-                            <TextView android:id="@+id/tvDetailLocation" android:text="Main Auditorium" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_columnSpan="2"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="LOCATION"
+                                android:textSize="11sp"
+                                android:textColor="@color/secondary_text"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvDetailLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Main Auditorium"
+                                android:textColor="@color/primary_text"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
                         </LinearLayout>
 
-                        <LinearLayout android:orientation="vertical" android:layout_columnSpan="2">
-                            <TextView android:text="STATUS" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_columnSpan="2">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="STATUS"
+                                android:textSize="11sp"
+                                android:textColor="@color/secondary_text"
+                                android:textStyle="bold"/>
                             <TextView
                                 android:id="@+id/tvDetailStatus"
                                 android:layout_width="wrap_content"
@@ -211,6 +311,36 @@
                     android:backgroundTint="#000B36"
                     app:cornerRadius="12dp"
                     android:elevation="4dp"/>
+
+                <Button
+                    android:id="@+id/btnCloseRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Close Registration"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#FF9800"
+                    app:cornerRadius="12dp"
+                    android:elevation="4dp"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/btnOpenRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Open Registration"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#4CAF50"
+                    app:cornerRadius="12dp"
+                    android:elevation="4dp"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/btnDeleteEvent"

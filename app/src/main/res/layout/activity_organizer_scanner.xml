@@ -47,9 +47,7 @@
             android:layout_width="280dp"
             android:layout_height="400dp"
             android:layout_gravity="center"
-            android:src="@drawable/logo_border"
-            android:scaleType="fitXY"
-            app:tint="#4CAF50" />
+            />
 
         <!-- Scanner Controls -->
         <LinearLayout

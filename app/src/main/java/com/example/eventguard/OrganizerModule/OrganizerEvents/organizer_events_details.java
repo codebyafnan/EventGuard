@@ -33,6 +33,7 @@ public class organizer_events_details extends AppCompatActivity {
     private DatabaseReference eventRef;
     private TextView tvTitle, tvDesc, tvLocation, tvTime, tvDate, tvCategory, tvCapacity, tvStatus;
     private ImageView ivBanner;
+    private android.widget.Button btnCloseRegistration, btnOpenRegistration;
     private Event currentEvent;
 
     @Override
@@ -67,6 +68,9 @@ public class organizer_events_details extends AppCompatActivity {
 
         findViewById(R.id.btnDeleteEvent).setOnClickListener(v -> showDeleteConfirmation());
 
+        btnCloseRegistration.setOnClickListener(v -> closeRegistration());
+        btnOpenRegistration.setOnClickListener(v -> openRegistration());
+
         // Navigation
         findViewById(R.id.navEvents).setOnClickListener(v -> {
             startActivity(new Intent(this, OrganizerEvents.class));
@@ -96,6 +100,8 @@ public class organizer_events_details extends AppCompatActivity {
         tvCapacity = findViewById(R.id.tvDetailCapacity);
         tvStatus = findViewById(R.id.tvDetailStatus);
         ivBanner = findViewById(R.id.ivDetailBanner);
+        btnCloseRegistration = findViewById(R.id.btnCloseRegistration);
+        btnOpenRegistration = findViewById(R.id.btnOpenRegistration);
     }
 
     private void fetchEventDetails() {
@@ -111,7 +117,33 @@ public class organizer_events_details extends AppCompatActivity {
                     tvDate.setText(currentEvent.date);
                     tvCategory.setText(currentEvent.category);
                     tvCapacity.setText(currentEvent.currentParticipants + " / " + currentEvent.maxParticipants);
-                    tvStatus.setText(currentEvent.status);
+                    
+                    long currentTime = System.currentTimeMillis();
+                    long oneDayMillis = 24 * 60 * 60 * 1000;
+                    String displayStatus = currentEvent.status;
+
+                    if ("Closed".equalsIgnoreCase(currentEvent.status)) {
+                        displayStatus = "Closed";
+                    } else if (currentEvent.currentParticipants >= currentEvent.maxParticipants) {
+                        displayStatus = "Full";
+                    } else if (currentTime >= (currentEvent.eventTimestamp - oneDayMillis)) {
+                        displayStatus = "Closed";
+                    } else if ("Registration Open".equalsIgnoreCase(currentEvent.status) || "Available".equalsIgnoreCase(currentEvent.status)) {
+                        displayStatus = "Open";
+                    }
+
+                    tvStatus.setText(displayStatus);
+
+                    if ("Open".equalsIgnoreCase(displayStatus)) {
+                        btnCloseRegistration.setVisibility(android.view.View.VISIBLE);
+                        btnOpenRegistration.setVisibility(android.view.View.GONE);
+                    } else if ("Closed".equalsIgnoreCase(displayStatus)) {
+                        btnCloseRegistration.setVisibility(android.view.View.GONE);
+                        btnOpenRegistration.setVisibility(android.view.View.VISIBLE);
+                    } else {
+                        btnCloseRegistration.setVisibility(android.view.View.GONE);
+                        btnOpenRegistration.setVisibility(android.view.View.GONE);
+                    }
 
                     if (currentEvent.imageUrl != null && !currentEvent.imageUrl.isEmpty()) {
                         Glide.with(organizer_events_details.this)
@@ -120,12 +152,15 @@ public class organizer_events_details extends AppCompatActivity {
                                 .into(ivBanner);
                     }
 
-                    if ("Full".equalsIgnoreCase(currentEvent.status)) {
+                    if ("Full".equalsIgnoreCase(displayStatus)) {
                         tvStatus.setBackgroundResource(R.drawable.red_badge);
-                    } else if ("Tentative".equalsIgnoreCase(currentEvent.status)) {
+                        tvStatus.setTextColor(getResources().getColor(R.color.status_red_text));
+                    } else if ("Closed".equalsIgnoreCase(displayStatus)) {
                         tvStatus.setBackgroundResource(R.drawable.blue_badge);
+                        tvStatus.setTextColor(getResources().getColor(R.color.status_blue_text));
                     } else {
                         tvStatus.setBackgroundResource(R.drawable.green_badge);
+                        tvStatus.setTextColor(getResources().getColor(R.color.status_green_text));
                     }
                 }
 
@@ -136,6 +171,40 @@ public class organizer_events_details extends AppCompatActivity {
                 Toast.makeText(organizer_events_details.this, "Failed to load event", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void closeRegistration() {
+        new AlertDialog.Builder(this)
+                .setTitle("Close Registration")
+                .setMessage("Are you sure you want to close registration for this event manually?")
+                .setPositiveButton("Yes, Close", (dialog, which) -> {
+                    eventRef.child("status").setValue("Closed").addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Registration closed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Failed to close registration", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void openRegistration() {
+        new AlertDialog.Builder(this)
+                .setTitle("Open Registration")
+                .setMessage("Are you sure you want to reopen registration for this event?")
+                .setPositiveButton("Yes, Open", (dialog, which) -> {
+                    eventRef.child("status").setValue("Available").addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Registration opened", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Failed to open registration", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private void showDeleteConfirmation() {

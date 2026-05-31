@@ -54,13 +54,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     .into(holder.ivBanner);
         }
 
-        // Status Logic: Registered (Green) > Full (Red) > Join (Blue)
+        // Status Logic: Registered (Green) > Closed (Blue) > Full (Red) > Join (Blue)
         boolean isRegistered = userRegisteredEventIds != null && userRegisteredEventIds.contains(event.id);
         boolean isFull = event.currentParticipants >= event.maxParticipants;
+        
+        long currentTime = System.currentTimeMillis();
+        long oneDayMillis = 24 * 60 * 60 * 1000;
+        boolean isClosed = "Closed".equalsIgnoreCase(event.status) || (currentTime >= (event.eventTimestamp - oneDayMillis));
 
         String statusText;
         if (isRegistered) {
             statusText = "Registered";
+        } else if (isClosed) {
+            statusText = "Closed";
         } else if (isFull) {
             statusText = "Full";
         } else {
@@ -71,14 +77,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         if (statusText.equalsIgnoreCase("Registered")) {
             holder.tvStatus.setBackgroundResource(R.drawable.green_badge);
-            holder.tvStatus.setTextColor(context.getResources().getColor(android.R.color.black));
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_green_text));
+        } else if (statusText.equalsIgnoreCase("Closed")) {
+            holder.tvStatus.setBackgroundResource(R.drawable.blue_badge);
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_blue_text));
         } else if (statusText.equalsIgnoreCase("Full")) {
             holder.tvStatus.setBackgroundResource(R.drawable.red_badge);
-            holder.tvStatus.setTextColor(context.getResources().getColor(android.R.color.black));
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_red_text));
         } else {
             // "Join" status
             holder.tvStatus.setBackgroundResource(R.drawable.blue_badge);
-            holder.tvStatus.setTextColor(context.getResources().getColor(android.R.color.black));
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_blue_text));
         }
 
         holder.btnDetails.setOnClickListener(v -> {
@@ -95,6 +104,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             intent.putExtra("maxParticipants", event.maxParticipants);
             intent.putExtra("isRegistered", isRegistered);
             intent.putExtra("imageUrl", event.imageUrl);
+            intent.putExtra("status", event.status);
             context.startActivity(intent);
         });
     }

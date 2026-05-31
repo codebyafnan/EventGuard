@@ -207,7 +207,7 @@ public class events extends AppCompatActivity {
 
         for (int i = 0; i < titles.length; i++) {
             String id = eventsRef.push().getKey();
-            Event event = new Event(id, titles[i], dates[i], "09:00 AM", categories[i], "Venue " + (i+1), "Description for " + titles[i], "", 0, 100, "Tentative", baseTimestamp + (i * 86400000L));
+            Event event = new Event(id, titles[i], dates[i], "09:00 AM", categories[i], "Venue " + (i+1), "Description for " + titles[i], "", 0, 100, "Available", baseTimestamp + (i * 86400000L));
             eventsRef.child(id).setValue(event);
         }
     }
@@ -235,16 +235,20 @@ public class events extends AppCompatActivity {
             boolean isUserRegistered = userRegisteredEventIds.contains(event.id);
             boolean isFull = event.currentParticipants >= event.maxParticipants;
             
+            long currentTime = System.currentTimeMillis();
+            long oneDayMillis = 24 * 60 * 60 * 1000;
+            boolean isClosed = "Closed".equalsIgnoreCase(event.status) || (currentTime >= (event.eventTimestamp - oneDayMillis));
+            
             boolean matchesStatus = noStatusFilter;
             
             if (!noStatusFilter) {
                 if (fRegistered && isUserRegistered) {
                     matchesStatus = true;
                 }
-                if (fFull && isFull && !isUserRegistered) {
+                if (fFull && isFull && !isUserRegistered && !isClosed) {
                     matchesStatus = true;
                 }
-                if (fJoin && !isFull && !isUserRegistered) {
+                if (fJoin && !isFull && !isUserRegistered && !isClosed) {
                     matchesStatus = true;
                 }
             }
