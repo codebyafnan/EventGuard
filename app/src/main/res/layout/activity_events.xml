@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/screen_background"
-    tools:context=".events.events">
+    tools:context=".UserModule.Events.events">
 
     <!-- SCROLLABLE CONTENT -->
     <LinearLayout

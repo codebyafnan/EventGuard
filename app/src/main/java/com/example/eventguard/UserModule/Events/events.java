@@ -53,10 +53,12 @@ public class events extends AppCompatActivity {
     private EventAdapter eventAdapter;
     private List<Event> allEvents = new ArrayList<>();
     private List<Event> filteredEvents = new ArrayList<>();
+    private List<String> userRegisteredEventIds = new ArrayList<>();
+    private List<String> userMarkedEventIds = new ArrayList<>();
     
     private DatabaseReference eventsRef, registrationsRef;
     private String selectedDate = "";
-    private List<String> userRegisteredEventIds = new ArrayList<>();
+    private List<Registration> userRegistrations = new ArrayList<>();
     private String currentUserId;
 
     @Override
@@ -97,7 +99,7 @@ public class events extends AppCompatActivity {
         tvNoEvents = findViewById(R.id.tvNoEvents);
         rvEvents.setLayoutManager(new LinearLayoutManager(this));
         
-        eventAdapter = new EventAdapter(this, filteredEvents, userRegisteredEventIds);
+        eventAdapter = new EventAdapter(this, filteredEvents, userRegisteredEventIds, userMarkedEventIds);
         rvEvents.setAdapter(eventAdapter);
 
         ImageView btndashboard = findViewById(R.id.btndashboard);
@@ -159,10 +161,14 @@ public class events extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         userRegisteredEventIds.clear();
+                        userMarkedEventIds.clear();
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             Registration reg = ds.getValue(Registration.class);
                             if (reg != null) {
                                 userRegisteredEventIds.add(reg.eventId);
+                                if (reg.isAttendanceMarked) {
+                                    userMarkedEventIds.add(reg.eventId);
+                                }
                             }
                         }
                         applyFilters();
@@ -200,16 +206,8 @@ public class events extends AppCompatActivity {
     }
 
     private void addSampleEvents() {
-        String[] titles = {"Global Tech Summit 2026", "AI Workshop", "Cloud Expo", "HackTheNorth", "Design Seminar", "Blockchain Meetup", "Cyber Security Forum"};
-        String[] dates = {"Oct 24, 2026", "Oct 25, 2026", "Oct 26, 2026", "Oct 27, 2026", "Oct 28, 2026", "Oct 29, 2026", "Oct 30, 2026"};
-        String[] categories = {"Seminar", "Workshop", "Exhibition", "Hackathon", "Seminar", "Workshop", "Seminar"};
-        long baseTimestamp = System.currentTimeMillis() + 86400000L * 30; // 30 days from now
-
-        for (int i = 0; i < titles.length; i++) {
-            String id = eventsRef.push().getKey();
-            Event event = new Event(id, titles[i], dates[i], "09:00 AM", categories[i], "Venue " + (i+1), "Description for " + titles[i], "", 0, 100, "Available", baseTimestamp + (i * 86400000L));
-            eventsRef.child(id).setValue(event);
-        }
+        // Removed automatic sample event creation to prevent unwanted data in production
+        // If sample events are needed, they should be added manually via the Organizer module.
     }
 
     private void applyFilters() {
@@ -237,7 +235,17 @@ public class events extends AppCompatActivity {
             
             long currentTime = System.currentTimeMillis();
             long oneDayMillis = 24 * 60 * 60 * 1000;
-            boolean isClosed = "Closed".equalsIgnoreCase(event.status) || (currentTime >= (event.eventTimestamp - oneDayMillis));
+            boolean isClosed;
+            
+            if ("Available".equalsIgnoreCase(event.status)) {
+                isClosed = false;
+            } else if ("Closed".equalsIgnoreCase(event.status)) {
+                isClosed = true;
+            } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+                isClosed = true;
+            } else {
+                isClosed = false;
+            }
             
             boolean matchesStatus = noStatusFilter;
             
@@ -265,7 +273,7 @@ public class events extends AppCompatActivity {
                 filteredEvents.add(event);
             }
         }
-        eventAdapter.updateList(filteredEvents, userRegisteredEventIds);
+        eventAdapter.updateList(filteredEvents, userRegisteredEventIds, userMarkedEventIds);
         
         if (filteredEvents.isEmpty()) {
             tvNoEvents.setVisibility(View.VISIBLE);

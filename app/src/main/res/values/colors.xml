@@ -32,4 +32,5 @@
     <color name="status_red_text">#660E0E</color>
     <color name="status_blue_bg">#90CAF9</color>
     <color name="status_blue_text">#062552</color>
+    <color name="status_blue_light">#D1E4FF</color>
 </resources>

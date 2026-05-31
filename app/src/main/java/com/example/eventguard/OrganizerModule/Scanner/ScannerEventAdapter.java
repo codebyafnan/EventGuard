@@ -49,6 +49,23 @@ public class ScannerEventAdapter extends RecyclerView.Adapter<ScannerEventAdapte
         // Reuse item_registered_event but change button text
         holder.btnAction.setText("Scan Pass");
 
+        // Set status visibility and text
+        holder.tvStatus.setVisibility(View.VISIBLE);
+        String status = getEffectiveStatus(event);
+        holder.tvStatus.setText(status);
+        
+        // Dynamic status colors
+        if ("Full".equalsIgnoreCase(status)) {
+            holder.tvStatus.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
+            holder.tvStatus.setBackgroundResource(R.drawable.status_bg_red);
+        } else if ("Closed".equalsIgnoreCase(status)) {
+            holder.tvStatus.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+            holder.tvStatus.setBackgroundResource(R.drawable.status_bg_grey);
+        } else {
+            holder.tvStatus.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+            holder.tvStatus.setBackgroundResource(R.drawable.status_bg_green);
+        }
+
         if (event.imageUrl != null && !event.imageUrl.isEmpty()) {
             Glide.with(context).load(event.imageUrl).placeholder(R.drawable.img).into(holder.ivEventImage);
         } else {
@@ -59,6 +76,22 @@ public class ScannerEventAdapter extends RecyclerView.Adapter<ScannerEventAdapte
         holder.itemView.setOnClickListener(v -> listener.onEventClick(event));
     }
 
+    private String getEffectiveStatus(Event event) {
+        long currentTime = System.currentTimeMillis();
+        long oneDayMillis = 24 * 60 * 60 * 1000;
+
+        if ("Closed".equalsIgnoreCase(event.status)) {
+            return "Closed";
+        } else if (event.currentParticipants >= event.maxParticipants) {
+            return "Full";
+        } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+            return "Closed";
+        } else if ("Available".equalsIgnoreCase(event.status) || "Registration Open".equalsIgnoreCase(event.status)) {
+            return "Open";
+        }
+        return event.status != null ? event.status : "Open";
+    }
+
     @Override
     public int getItemCount() {
         return eventList.size();
@@ -66,7 +99,7 @@ public class ScannerEventAdapter extends RecyclerView.Adapter<ScannerEventAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivEventImage;
-        TextView tvEventTitle, tvEventDate;
+        TextView tvEventTitle, tvEventDate, tvStatus;
         MaterialButton btnAction;
 
         public ViewHolder(@NonNull View itemView) {
@@ -74,6 +107,7 @@ public class ScannerEventAdapter extends RecyclerView.Adapter<ScannerEventAdapte
             ivEventImage = itemView.findViewById(R.id.ivEventImage);
             tvEventTitle = itemView.findViewById(R.id.tvEventTitle);
             tvEventDate = itemView.findViewById(R.id.tvEventDate);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
             btnAction = itemView.findViewById(R.id.btnEntryPass);
         }
     }

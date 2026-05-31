@@ -17,4 +17,5 @@
     <color name="outline_button_stroke">#FFFFFF</color>
     <color name="locked_field_bg">#000000</color>
     <color name="locked_field_stroke">#333333</color>
+    <color name="status_blue_light">#002D62</color>
 </resources>

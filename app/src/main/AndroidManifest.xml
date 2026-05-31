@@ -45,9 +45,7 @@
         <activity
             android:name=".OrganizerModule.OrganizerEvents.organizer_events_details"
             android:exported="false" />
-        <activity
-            android:name=".UserModule.Events.item_event"
-            android:exported="false" /> <!-- User Module -->
+        <!-- User Module -->
         <!-- Events -->
         <activity
             android:name=".UserModule.Events.dialog_filter"
@@ -86,8 +84,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Auths.MainActivity"
-            android:exported="true"
-            tools:ignore="MissingClass">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -32,7 +32,7 @@ public class events_details extends AppCompatActivity {
     private String eventId, eventTitle, eventDate, eventDesc, eventLoc, eventTime, imageUrl, status;
     private long eventTimestamp;
     private int currentParticipants, maxParticipants;
-    private boolean isRegistered;
+    private boolean isRegistered, isMarked;
     private DatabaseReference registrationsRef;
     private FirebaseAuth auth;
 
@@ -61,6 +61,7 @@ public class events_details extends AppCompatActivity {
         currentParticipants = getIntent().getIntExtra("currentParticipants", 0);
         maxParticipants = getIntent().getIntExtra("maxParticipants", 0);
         isRegistered = getIntent().getBooleanExtra("isRegistered", false);
+        isMarked = getIntent().getBooleanExtra("isMarked", false);
         status = getIntent().getStringExtra("status");
 
         TextView tvTitle = findViewById(R.id.tvDetailTitle);
@@ -94,15 +95,34 @@ public class events_details extends AppCompatActivity {
 
         long currentTime = System.currentTimeMillis();
         long oneDayMillis = 24 * 60 * 60 * 1000;
-        boolean isClosed = "Closed".equalsIgnoreCase(status) || (currentTime >= (eventTimestamp - oneDayMillis));
+        boolean isClosed;
+        
+        if ("Available".equalsIgnoreCase(status)) {
+            isClosed = false;
+        } else if ("Closed".equalsIgnoreCase(status)) {
+            isClosed = true;
+        } else if (currentTime >= (eventTimestamp - oneDayMillis)) {
+            isClosed = true;
+        } else {
+            isClosed = false;
+        }
 
         if (isRegistered) {
-            tvRegisterText.setText("Already Registered");
-            tvStatus.setText("Registered");
-            tvStatus.setBackgroundResource(R.drawable.green_badge);
-            tvStatus.setTextColor(getResources().getColor(R.color.status_green_text));
-            btnRegister.setVisibility(View.GONE);
-            btnCancel.setVisibility(View.VISIBLE);
+            if (isMarked) {
+                tvRegisterText.setText("Attendance Marked");
+                tvStatus.setText("Verified");
+                tvStatus.setBackgroundResource(R.drawable.green_badge);
+                tvStatus.setTextColor(getResources().getColor(R.color.status_green_text));
+                btnRegister.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.GONE);
+            } else {
+                tvRegisterText.setText("Already Registered");
+                tvStatus.setText("Registered");
+                tvStatus.setBackgroundResource(R.drawable.green_badge);
+                tvStatus.setTextColor(getResources().getColor(R.color.status_green_text));
+                btnRegister.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.VISIBLE);
+            }
         } else if (isClosed) {
             tvRegisterText.setText("Registration Closed");
             tvStatus.setText("Closed");
@@ -240,12 +260,14 @@ public class events_details extends AppCompatActivity {
                                 long currentTime = System.currentTimeMillis();
                                 long oneDayMillis = 24 * 60 * 60 * 1000;
                                 
-                                if (!"Closed".equalsIgnoreCase(event.status)) {
-                                    if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
-                                        event.status = "Closed";
-                                    } else {
-                                        event.status = "Available";
-                                    }
+                                if ("Available".equalsIgnoreCase(event.status)) {
+                                    // Manual override stays open
+                                } else if ("Closed".equalsIgnoreCase(event.status)) {
+                                    // Manual override stays closed
+                                } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+                                    event.status = "Closed";
+                                } else {
+                                    event.status = "Available";
                                 }
                             }
                             mutableData.setValue(event);
@@ -282,7 +304,21 @@ public class events_details extends AppCompatActivity {
                     return com.google.firebase.database.Transaction.success(mutableData);
                 }
 
-                if ("Closed".equalsIgnoreCase(event.status)) {
+                long currentTime = System.currentTimeMillis();
+                long oneDayMillis = 24 * 60 * 60 * 1000;
+                
+                boolean effectivelyClosed;
+                if ("Available".equalsIgnoreCase(event.status)) {
+                    effectivelyClosed = false;
+                } else if ("Closed".equalsIgnoreCase(event.status)) {
+                    effectivelyClosed = true;
+                } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+                    effectivelyClosed = true;
+                } else {
+                    effectivelyClosed = false;
+                }
+
+                if (effectivelyClosed) {
                     return com.google.firebase.database.Transaction.abort();
                 }
 
@@ -293,11 +329,10 @@ public class events_details extends AppCompatActivity {
                 // Increment participants
                 event.currentParticipants = event.currentParticipants + 1;
                 
-                long currentTime = System.currentTimeMillis();
-                long oneDayMillis = 24 * 60 * 60 * 1000;
-
                 if (event.currentParticipants >= event.maxParticipants) {
                     event.status = "Full";
+                } else if ("Available".equalsIgnoreCase(event.status)) {
+                    // Stay Available
                 } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
                     event.status = "Closed";
                 }

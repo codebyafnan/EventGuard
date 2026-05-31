@@ -49,13 +49,15 @@ public class OrganizerEventAdapter extends RecyclerView.Adapter<OrganizerEventAd
         long oneDayMillis = 24 * 60 * 60 * 1000;
         String displayStatus = event.status;
 
-        if ("Closed".equalsIgnoreCase(event.status)) {
-            displayStatus = "Closed";
-        } else if (event.currentParticipants >= event.maxParticipants) {
+        if (event.currentParticipants >= event.maxParticipants) {
             displayStatus = "Full";
+        } else if ("Available".equalsIgnoreCase(event.status)) {
+            displayStatus = "Open";
+        } else if ("Closed".equalsIgnoreCase(event.status)) {
+            displayStatus = "Closed";
         } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
             displayStatus = "Closed";
-        } else if ("Registration Open".equalsIgnoreCase(event.status) || "Available".equalsIgnoreCase(event.status)) {
+        } else {
             displayStatus = "Open";
         }
 
@@ -98,9 +100,9 @@ public class OrganizerEventAdapter extends RecyclerView.Adapter<OrganizerEventAd
     }
 
     public static class AdminEventViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvDate, tvCategory, tvStatus, tvLocation, tvSeats;
-        Button btnManage;
-        ImageView ivBanner;
+        public TextView tvTitle, tvDate, tvCategory, tvStatus, tvLocation, tvSeats;
+        public Button btnManage;
+        public ImageView ivBanner;
 
         public AdminEventViewHolder(@NonNull View itemView) {
             super(itemView);

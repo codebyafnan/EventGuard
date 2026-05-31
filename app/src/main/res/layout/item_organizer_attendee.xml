@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvAttendeeName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:text="Loading..."
+        android:textSize="14sp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/tvTicketId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="#TK-XXXX"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvCheckInTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:text="--"
+        android:textSize="12sp"
+        android:textColor="#333333"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:text="Status"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingVertical="2dp"
+        android:background="@drawable/green_badge"
+        android:textColor="#FFFFFF"
+        android:layout_marginStart="4dp"/>
+</LinearLayout>

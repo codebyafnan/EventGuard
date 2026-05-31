@@ -1,10 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
     tools:context=".OrganizerModule.OrganizerProfile.organizer_security">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TOP BAR -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#000B36"
+            android:gravity="center_vertical"
+            android:paddingTop="18dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:src="@drawable/top_logo"
+                android:contentDescription="EventGuard Logo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/security_icon"
+                    app:tint="@color/primary_text"
+                    android:contentDescription="Security Icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Security Settings"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Current PASSWORD LABEL + EYE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Current Password"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/toggleCurrentPassword"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Toggle Password"
+                    android:src="@drawable/eye_close"
+                    app:tint="@color/secondary_text"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etCurrentPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/icon_password"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="Enter Current Password"
+                android:textColorHint="@color/hint_text"
+                android:textColor="@color/primary_text"
+                android:inputType="textWebPassword"
+                android:padding="12dp"
+                android:textSize="14sp" />
+
+            <!-- New PASSWORD LABEL + EYE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="New Password"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/togglePassword"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Toggle Password"
+                    android:src="@drawable/eye_close"
+                    app:tint="@color/secondary_text"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/icon_password"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="Enter New Password"
+                android:textColorHint="@color/hint_text"
+                android:textColor="@color/primary_text"
+                android:inputType="textWebPassword"
+                android:padding="12dp"
+                android:textSize="14sp" />
+
+            <!-- Confirm PASSWORD LABEL + EYE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Confirm Password"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/toggleConfirmPassword"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Toggle Password"
+                    android:src="@drawable/eye_close"
+                    app:tint="@color/secondary_text"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/icon_password"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="Enter Confirm Password"
+                android:textColorHint="@color/hint_text"
+                android:textColor="@color/primary_text"
+                android:inputType="textWebPassword"
+                android:padding="12dp"
+                android:textSize="14sp" />
+
+            <!-- SAVE BUTTON -->
+            <LinearLayout
+                android:id="@+id/btnSaveSecurity"
+                android:background="@drawable/border_radius"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="28dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/save_icon"
+                    android:contentDescription="Save Icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save Changes"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- BOTTOM NAVIGATION -->
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/card_background"
+        android:elevation="12dp"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <!-- EVENTS -->
+        <LinearLayout
+            android:id="@+id/navEvents"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/event_grey" />
+        </LinearLayout>
+
+        <!-- SCANNER -->
+        <LinearLayout
+            android:id="@+id/navScanner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:src="@drawable/scanner_icon"/>
+        </LinearLayout>
+
+        <!-- DASHBOARD -->
+        <LinearLayout
+            android:id="@+id/navDashboard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:src="@drawable/nav_grey_dashboard" />
+        </LinearLayout>
+
+        <!-- PROFILE -->
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/nav_bg">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/nav_ligth_profile" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -162,16 +162,40 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <EditText
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="16dp"
-                        android:background="@drawable/edittext_bg"
-                        android:drawableStart="@drawable/icon_search"
-                        android:drawablePadding="10dp"
-                        android:hint="Search attendee list..."
-                        android:padding="12dp"
-                        android:textSize="14sp"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp">
+
+                        <EditText
+                            android:id="@+id/etSearchAttendees"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="50dp"
+                            android:background="@drawable/edittext_bg"
+                            android:drawableStart="@drawable/icon_search"
+                            android:drawablePadding="10dp"
+                            android:hint="Search attendee list..."
+                            android:padding="12dp"
+                            android:textSize="14sp"
+                            android:singleLine="true"
+                            android:imeOptions="actionSearch"/>
+
+                        <ImageButton
+                            android:id="@+id/btnToggleList"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/border_radius"
+                            android:backgroundTint="#D1E4FF"
+                            android:src="@drawable/user_icon"
+                            app:tint="#000B36"
+                            android:contentDescription="Toggle list mode"/>
+                    </LinearLayout>
 
                     <!-- TABLE HEADER -->
                     <LinearLayout
@@ -200,8 +224,17 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="0.8"
                             android:text="TIME"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#555555"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.8"
+                            android:text="STATUS"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="#555555"
@@ -234,21 +267,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:orientation="horizontal">
-                            <ImageButton
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:background="@drawable/border_radius"
-                                android:backgroundTint="#FFFFFF"
-                                android:src="@drawable/icon_edit"
-                                android:contentDescription="Prev"/>
-                            <ImageButton
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginStart="8dp"
-                                android:background="@drawable/border_radius"
-                                android:backgroundTint="#FFFFFF"
-                                android:src="@drawable/icon_edit"
-                                android:contentDescription="Next"/>
+
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -269,6 +288,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
 
+        <!-- EVENTS -->
         <LinearLayout
             android:id="@+id/navEvents"
             android:layout_width="0dp"
@@ -276,19 +296,14 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/event_grey"
-                android:contentDescription="Events"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Events"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/event_grey" />
         </LinearLayout>
 
+        <!-- SCANNER -->
         <LinearLayout
             android:id="@+id/navScanner"
             android:layout_width="0dp"
@@ -296,42 +311,37 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/qr"
-                app:tint="@color/hint_text"
-                android:contentDescription="Scanner"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scanner"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:src="@drawable/scanner_icon"/>
         </LinearLayout>
 
+        <!-- DASHBOARD -->
         <LinearLayout
             android:id="@+id/navDashboard"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="@drawable/nav_bg">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/nav_grey_dashboard"
-                app:tint="#246DFD"
-                android:contentDescription="Dashboard"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dashboard"
-                android:textSize="10sp"
-                android:textColor="#246DFD"/>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/nav_bg">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/nav_ligth_dashboard" />
+            </LinearLayout>
         </LinearLayout>
 
+        <!-- PROFILE -->
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
@@ -339,17 +349,11 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/nav_grey_profile"
-                android:contentDescription="Profile"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:src="@drawable/nav_grey_profile" />
         </LinearLayout>
     </LinearLayout>
 

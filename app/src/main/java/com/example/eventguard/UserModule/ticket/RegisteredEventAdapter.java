@@ -40,12 +40,25 @@ public class RegisteredEventAdapter extends RecyclerView.Adapter<RegisteredEvent
         holder.tvTitle.setText(reg.eventTitle);
         holder.tvDate.setText(reg.eventDate);
 
+        if (reg.isAttendanceMarked) {
+            holder.btnEntryPass.setText("Verified");
+            // Set a color directly to avoid R.color issues if it's missing or different
+            holder.btnEntryPass.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF2E7D32)); // Material Green 700
+        } else {
+            holder.btnEntryPass.setText("View Ticket");
+            holder.btnEntryPass.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF1F2A5A)); // Original color #1F2A5A
+        }
+
         holder.btnEntryPass.setOnClickListener(v -> {
             Intent intent = new Intent(context, qr_pass.class);
             intent.putExtra("registrationId", reg.registrationId);
+            intent.putExtra("eventId", reg.eventId);
             intent.putExtra("eventTitle", reg.eventTitle);
             intent.putExtra("eventDate", reg.eventDate);
+            intent.putExtra("eventLoc", reg.eventLocation);
+            intent.putExtra("eventTime", reg.eventTime);
             intent.putExtra("eventTimestamp", reg.eventTimestamp);
+            intent.putExtra("isRegistered", true);
             intent.putExtra("isMarked", reg.isAttendanceMarked);
             context.startActivity(intent);
         });

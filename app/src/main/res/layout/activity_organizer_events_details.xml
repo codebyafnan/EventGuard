@@ -372,90 +372,72 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
 
+        <!-- EVENTS -->
         <LinearLayout
             android:id="@+id/navEvents"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="@drawable/nav_bg"
-            android:clickable="true"
-            android:focusable="true">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/event_light" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Events"
-                android:textSize="10sp"
-                android:textColor="#246DFD"/>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/nav_bg">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/event_light" />
+            </LinearLayout>
         </LinearLayout>
 
+        <!-- SCANNER -->
         <LinearLayout
             android:id="@+id/navScanner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/qr"
-                app:tint="@color/hint_text" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scanner"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:src="@drawable/scanner_icon"/>
         </LinearLayout>
 
+        <!-- DASHBOARD -->
         <LinearLayout
             android:id="@+id/navDashboard"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="55dp"
+                android:layout_height="40dp"
                 android:src="@drawable/nav_grey_dashboard" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dashboard"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
         </LinearLayout>
 
+        <!-- PROFILE -->
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="55dp"
+                android:layout_height="40dp"
                 android:src="@drawable/nav_grey_profile" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
         </LinearLayout>
     </LinearLayout>
 

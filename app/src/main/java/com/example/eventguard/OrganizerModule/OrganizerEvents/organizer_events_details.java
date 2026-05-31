@@ -18,9 +18,10 @@ import com.bumptech.glide.Glide;
 import com.example.eventguard.OrganizerModule.Dashboard.CreateEventActivity;
 import com.example.eventguard.OrganizerModule.Dashboard.OrganizerDashboard;
 import com.example.eventguard.OrganizerModule.Scanner.OrganizerScanner;
+import com.example.eventguard.OrganizerModule.Scanner.ScannerRegisteredEvents;
 import com.example.eventguard.R;
 import com.example.eventguard.models.Event;
-import com.example.eventguard.UserModule.Profile.profile_setting;
+import com.example.eventguard.OrganizerModule.OrganizerProfile.organizer_profile_setting;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,11 +82,11 @@ public class organizer_events_details extends AppCompatActivity {
             finish();
         });
         findViewById(R.id.navProfile).setOnClickListener(v -> {
-            startActivity(new Intent(this, profile_setting.class));
+            startActivity(new Intent(this, organizer_profile_setting.class));
             finish();
         });
         findViewById(R.id.navScanner).setOnClickListener(v -> {
-            startActivity(new Intent(this, OrganizerScanner.class));
+            startActivity(new Intent(this, ScannerRegisteredEvents.class));
             finish();
         });
     }
@@ -122,13 +123,15 @@ public class organizer_events_details extends AppCompatActivity {
                     long oneDayMillis = 24 * 60 * 60 * 1000;
                     String displayStatus = currentEvent.status;
 
-                    if ("Closed".equalsIgnoreCase(currentEvent.status)) {
-                        displayStatus = "Closed";
-                    } else if (currentEvent.currentParticipants >= currentEvent.maxParticipants) {
+                    if (currentEvent.currentParticipants >= currentEvent.maxParticipants) {
                         displayStatus = "Full";
+                    } else if ("Available".equalsIgnoreCase(currentEvent.status)) {
+                        displayStatus = "Open";
+                    } else if ("Closed".equalsIgnoreCase(currentEvent.status)) {
+                        displayStatus = "Closed";
                     } else if (currentTime >= (currentEvent.eventTimestamp - oneDayMillis)) {
                         displayStatus = "Closed";
-                    } else if ("Registration Open".equalsIgnoreCase(currentEvent.status) || "Available".equalsIgnoreCase(currentEvent.status)) {
+                    } else {
                         displayStatus = "Open";
                     }
 
@@ -219,8 +222,29 @@ public class organizer_events_details extends AppCompatActivity {
     private void deleteEvent() {
         eventRef.removeValue().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(organizer_events_details.this, "Event deleted successfully", Toast.LENGTH_SHORT).show();
-                finish();
+                // Delete all registrations associated with this event
+                DatabaseReference registrationsRef = FirebaseDatabase.getInstance("https://eventguard-601b6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Registrations");
+                registrationsRef.orderByChild("eventId").equalTo(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            ds.getRef().removeValue();
+                        }
+                        
+                        // Also delete attendance records
+                        DatabaseReference attendanceRef = FirebaseDatabase.getInstance("https://eventguard-601b6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Attendance");
+                        attendanceRef.child(eventId).removeValue();
+
+                        Toast.makeText(organizer_events_details.this, "Event and all associated data deleted", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Still finish because the main event is deleted
+                        finish();
+                    }
+                });
             } else {
                 Toast.makeText(organizer_events_details.this, "Failed to delete event", Toast.LENGTH_SHORT).show();
             }

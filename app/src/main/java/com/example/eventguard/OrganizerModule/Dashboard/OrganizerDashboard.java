@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import com.example.eventguard.UserModule.Profile.profile_setting;
+import com.example.eventguard.OrganizerModule.OrganizerProfile.organizer_profile_setting;
 
 import java.util.Locale;
 
@@ -83,13 +83,13 @@ public class OrganizerDashboard extends AppCompatActivity {
         });
 
         findViewById(R.id.btnEditProfile).setOnClickListener(v -> {
-            startActivity(new Intent(this, profile_setting.class));
+            startActivity(new Intent(this, organizer_profile_setting.class));
         });
 
         // Navigation
         findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
         findViewById(R.id.navScanner).setOnClickListener(v -> startActivity(new Intent(this, ScannerRegisteredEvents.class)));
-        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, profile_setting.class)));
+        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, organizer_profile_setting.class)));
         // Dashboard is current
 
         findViewById(R.id.btnFindEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
@@ -143,8 +143,14 @@ public class OrganizerDashboard extends AppCompatActivity {
         tvAdminPhone.setText(user.phone != null && !user.phone.isEmpty() ? user.phone : "Not set");
         tvAdminLocation.setText(user.country != null && !user.country.isEmpty() ? user.country : "Not set");
 
+        // Set role badge text
+        TextView tvRoleBadge = findViewById(R.id.tvRoleBadge);
+        if (tvRoleBadge != null) {
+            tvRoleBadge.setText(user.role != null ? user.role : "Organizer");
+        }
+
         if (user.joinedDate > 0) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM yyyy", java.util.Locale.getDefault());
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMMM yyyy", java.util.Locale.getDefault());
             joinedDateStr = sdf.format(new java.util.Date(user.joinedDate));
         }
 

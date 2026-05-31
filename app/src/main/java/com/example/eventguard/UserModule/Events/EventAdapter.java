@@ -24,11 +24,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     private Context context;
     private List<Event> eventList;
     private List<String> userRegisteredEventIds;
+    private List<String> userMarkedEventIds;
 
-    public EventAdapter(Context context, List<Event> eventList, List<String> userRegisteredEventIds) {
+    public EventAdapter(Context context, List<Event> eventList, List<String> userRegisteredEventIds, List<String> userMarkedEventIds) {
         this.context = context;
         this.eventList = eventList;
         this.userRegisteredEventIds = userRegisteredEventIds;
+        this.userMarkedEventIds = userMarkedEventIds;
     }
 
     @NonNull
@@ -56,14 +58,27 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         // Status Logic: Registered (Green) > Closed (Blue) > Full (Red) > Join (Blue)
         boolean isRegistered = userRegisteredEventIds != null && userRegisteredEventIds.contains(event.id);
+        boolean isMarked = userMarkedEventIds != null && userMarkedEventIds.contains(event.id);
         boolean isFull = event.currentParticipants >= event.maxParticipants;
         
         long currentTime = System.currentTimeMillis();
         long oneDayMillis = 24 * 60 * 60 * 1000;
-        boolean isClosed = "Closed".equalsIgnoreCase(event.status) || (currentTime >= (event.eventTimestamp - oneDayMillis));
+        boolean isClosed;
+        
+        if ("Available".equalsIgnoreCase(event.status)) {
+            isClosed = false;
+        } else if ("Closed".equalsIgnoreCase(event.status)) {
+            isClosed = true;
+        } else if (currentTime >= (event.eventTimestamp - oneDayMillis)) {
+            isClosed = true;
+        } else {
+            isClosed = false;
+        }
 
         String statusText;
-        if (isRegistered) {
+        if (isMarked) {
+            statusText = "Verified";
+        } else if (isRegistered) {
             statusText = "Registered";
         } else if (isClosed) {
             statusText = "Closed";
@@ -75,7 +90,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         holder.tvStatus.setText(statusText);
 
-        if (statusText.equalsIgnoreCase("Registered")) {
+        if (statusText.equalsIgnoreCase("Verified")) {
+            holder.tvStatus.setBackgroundResource(R.drawable.green_badge);
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_green_text));
+        } else if (statusText.equalsIgnoreCase("Registered")) {
             holder.tvStatus.setBackgroundResource(R.drawable.green_badge);
             holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_green_text));
         } else if (statusText.equalsIgnoreCase("Closed")) {
@@ -103,6 +121,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             intent.putExtra("currentParticipants", event.currentParticipants);
             intent.putExtra("maxParticipants", event.maxParticipants);
             intent.putExtra("isRegistered", isRegistered);
+            intent.putExtra("isMarked", isMarked);
             intent.putExtra("imageUrl", event.imageUrl);
             intent.putExtra("status", event.status);
             context.startActivity(intent);
@@ -114,9 +133,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return eventList.size();
     }
 
-    public void updateList(List<Event> newList, List<String> newUserRegisteredEventIds) {
+    public void updateList(List<Event> newList, List<String> newUserRegisteredEventIds, List<String> newUserMarkedEventIds) {
         this.eventList = newList;
         this.userRegisteredEventIds = newUserRegisteredEventIds;
+        this.userMarkedEventIds = newUserMarkedEventIds;
         notifyDataSetChanged();
     }
 

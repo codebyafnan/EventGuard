@@ -28,7 +28,7 @@ import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
-import com.example.eventguard.UserModule.Profile.profile_setting;
+import com.example.eventguard.OrganizerModule.OrganizerProfile.organizer_profile_setting;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,30 +77,26 @@ public class OrganizerScanner extends AppCompatActivity {
         usersRef = FirebaseDatabase.getInstance(databaseUrl).getReference("Users");
 
         barcodeScannerView = findViewById(R.id.barcodeScanner);
-        btnFlash = findViewById(R.id.btnFlash);
 
         capture = new CaptureManager(this, barcodeScannerView);
         capture.initializeFromIntent(getIntent(), savedInstanceState);
         // We will use custom callback to handle continuous scanning and validation
         barcodeScannerView.decodeContinuous(callback);
 
-        btnFlash.setOnClickListener(v -> {
-            if (isFlashOn) {
-                barcodeScannerView.setTorchOff();
-                isFlashOn = false;
-            } else {
-                barcodeScannerView.setTorchOn();
-                isFlashOn = true;
-            }
-        });
+        btnFlash = findViewById(R.id.btnFlash);
+        if (btnFlash != null) {
+            btnFlash.setOnClickListener(v -> {
+                if (isFlashOn) {
+                    barcodeScannerView.setTorchOff();
+                    isFlashOn = false;
+                } else {
+                    barcodeScannerView.setTorchOn();
+                    isFlashOn = true;
+                }
+            });
+        }
 
-        findViewById(R.id.btnSwitchCamera).setOnClickListener(v -> {
-            // Toggle between front and back camera
-            // Note: This requires restarting or re-initializing the scanner
-            // For simplicity in this implementation, we can just toast if not fully implemented
-            // or use the BarcodeView settings if possible.
-            Toast.makeText(this, "Switching camera...", Toast.LENGTH_SHORT).show();
-        });
+
 
         setupRecentScans();
         setupNavigation();
@@ -286,7 +282,7 @@ public class OrganizerScanner extends AppCompatActivity {
     private void setupNavigation() {
         findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
         findViewById(R.id.navDashboard).setOnClickListener(v -> startActivity(new Intent(this, OrganizerDashboard.class)));
-        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, profile_setting.class)));
+        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, organizer_profile_setting.class)));
         findViewById(R.id.navScanner).setOnClickListener(v -> {
             startActivity(new Intent(this, ScannerRegisteredEvents.class));
             finish();
@@ -302,24 +298,24 @@ public class OrganizerScanner extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        capture.onResume();
+        if (capture != null) capture.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        capture.onPause();
+        if (capture != null) capture.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        capture.onDestroy();
+        if (capture != null) capture.onDestroy();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        capture.onSaveInstanceState(outState);
+        if (capture != null) capture.onSaveInstanceState(outState);
     }
 }

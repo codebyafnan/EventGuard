@@ -13,12 +13,13 @@ public class Event {
     public int maxParticipants;
     public String status; // Tentative, Joined, Full
     public long eventTimestamp; // For expiration logic
+    public String organizerId;
 
     public Event() {
         // Required for Firebase
     }
 
-    public Event(String id, String title, String date, String time, String category, String location, String description, String imageUrl, int currentParticipants, int maxParticipants, String status, long eventTimestamp) {
+    public Event(String id, String title, String date, String time, String category, String location, String description, String imageUrl, int currentParticipants, int maxParticipants, String status, long eventTimestamp, String organizerId) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -31,6 +32,7 @@ public class Event {
         this.maxParticipants = maxParticipants;
         this.status = status;
         this.eventTimestamp = eventTimestamp;
+        this.organizerId = organizerId;
     }
 
     public void setExpired(boolean expired) {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/screen_background"
-    tools:context=".Dashboards.security">
+    tools:context=".UserModule.Profile.security">
 
     <LinearLayout
         android:id="@+id/main"

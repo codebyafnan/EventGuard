@@ -26,7 +26,7 @@ import com.example.eventguard.OrganizerModule.Scanner.OrganizerScanner;
 import com.example.eventguard.OrganizerModule.Scanner.ScannerRegisteredEvents;
 import com.example.eventguard.OrganizerModule.Dashboard.CreateEventActivity;
 import com.example.eventguard.OrganizerModule.Dashboard.OrganizerDashboard;
-import com.example.eventguard.UserModule.Profile.profile_setting;
+import com.example.eventguard.OrganizerModule.OrganizerProfile.organizer_profile_setting;
 import com.example.eventguard.R;
 import com.example.eventguard.models.Event;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -127,7 +127,7 @@ public class OrganizerEvents extends AppCompatActivity {
 
         findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, OrganizerEvents.class)));
         findViewById(R.id.navDashboard).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, OrganizerDashboard.class)));
-        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, profile_setting.class)));
+        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, organizer_profile_setting.class)));
         findViewById(R.id.navScanner).setOnClickListener(v -> {
             startActivity(new Intent(OrganizerEvents.this, ScannerRegisteredEvents.class));
         });

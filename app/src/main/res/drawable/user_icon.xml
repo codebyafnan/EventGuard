@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="18dp"
+        android:height="14dp"
+        android:drawable="@drawable/icon_users"
+        android:gravity="center_vertical"/>
+</layer-list>

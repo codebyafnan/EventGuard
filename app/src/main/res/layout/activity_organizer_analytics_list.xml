@@ -16,81 +16,12 @@
         android:gravity="center_vertical"
         android:paddingTop="18dp"
         android:paddingBottom="12dp">
-
         <ImageView
             android:layout_width="200dp"
             android:layout_height="58dp"
             android:src="@drawable/top_logo"
             android:contentDescription="EventGuard Logo"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/headerText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/topBar"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Analytics Dashboard"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Real-time oversight for Tech Summit 2024"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginTop="4dp"/>
-    </LinearLayout>
-
-    <!-- SEARCH BAR -->
-    <LinearLayout
-        android:id="@+id/searchContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/headerText"
-        android:paddingHorizontal="20dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <EditText
-            android:id="@+id/etSearchEvents"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="50dp"
-            android:background="@drawable/edittext_bg"
-            android:drawableStart="@drawable/icon_search"
-            android:drawablePadding="10dp"
-            android:hint="Search events..."
-            android:padding="12dp"
-            android:textSize="14sp"/>
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/border_radius"
-            android:backgroundTint="#D1E4FF"
-            android:src="@drawable/icon_filter"
-            app:tint="#000B36"
-            android:contentDescription="Filter"/>
-    </LinearLayout>
-
-    <!-- EVENTS LIST -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAnalyticsEvents"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/searchContainer"
-        android:layout_above="@id/bottomNav"
-        android:padding="16dp"
-        android:clipToPadding="false"/>
 
     <!-- BOTTOM NAVIGATION -->
     <LinearLayout
@@ -103,88 +34,219 @@
         android:orientation="horizontal"
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
-
         <LinearLayout
             android:id="@+id/navEvents"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/event_grey"
-                android:contentDescription="Events"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Events"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/event_grey" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/navScanner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/qr"
-                app:tint="@color/hint_text"
-                android:contentDescription="Scanner"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scanner"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:src="@drawable/scanner_icon"/>
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/navDashboard"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="@drawable/nav_bg">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/nav_grey_dashboard"
-                app:tint="#246DFD"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dashboard"
-                android:textSize="10sp"
-                android:textColor="#246DFD"/>
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/nav_bg">
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/nav_ligth_dashboard" />
+            </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/nav_grey_profile"
-                android:contentDescription="Profile"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textSize="10sp"
-                android:textColor="@color/hint_text"/>
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:src="@drawable/nav_grey_profile" />
         </LinearLayout>
     </LinearLayout>
+
+    <!-- SCROLLABLE CONTENT -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBar"
+        android:layout_above="@id/bottomNav"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Analytics Dashboard"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:id="@+id/tvAnalyticsSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Viewing all events"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <!-- SEARCH BAR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <EditText
+                    android:id="@+id/etSearchEvents"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_bg"
+                    android:drawableStart="@drawable/icon_search"
+                    android:drawablePadding="10dp"
+                    android:hint="Search title, location or category..."
+                    android:padding="12dp"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:imeOptions="actionSearch"/>
+                <ImageButton
+                    android:id="@+id/btnFilter"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/border_radius"
+                    android:backgroundTint="#D1E4FF"
+                    android:src="@drawable/icon_filter"
+                    app:tint="#000B36"/>
+            </LinearLayout>
+
+            <!-- Filter Section -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/filterSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="8dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <CheckBox android:id="@+id/cbOpen" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Open"/>
+                        <CheckBox android:id="@+id/cbClosed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Closed"/>
+                        <CheckBox android:id="@+id/cbFull" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Full"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginTop="8dp"/>
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2">
+                        <CheckBox android:id="@+id/cbWorkshop" android:text="Workshop"/>
+                        <CheckBox android:id="@+id/cbSeminar" android:text="Seminar"/>
+                        <CheckBox android:id="@+id/cbExhibition" android:text="Exhibition"/>
+                        <CheckBox android:id="@+id/cbHackathon" android:text="Hackathon"/>
+                    </GridLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date Filter"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginTop="8dp"/>
+                    <CalendarView
+                        android:id="@+id/calendarFilter"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"/>
+
+                    <Button
+                        android:id="@+id/btnApplyFilter"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Apply Filters"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="#000B36"
+                        android:textColor="#FFFFFF"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- EVENTS LIST -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAnalyticsEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:padding="16dp"
+                android:clipToPadding="false"/>
+
+            <TextView
+                android:id="@+id/tvNoEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No events found matching your filters"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:textSize="16sp"
+                android:textColor="@color/hint_text"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

@@ -21,9 +21,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.eventguard.OrganizerModule.OrganizerEvents.OrganizerEvents;
 import com.example.eventguard.OrganizerModule.Scanner.OrganizerScanner;
-import com.example.eventguard.UserModule.Profile.profile_setting;
+import com.example.eventguard.OrganizerModule.Scanner.ScannerRegisteredEvents;
+import com.example.eventguard.OrganizerModule.OrganizerProfile.organizer_profile_setting;
 import com.example.eventguard.R;
 import com.example.eventguard.models.Event;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +42,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private Spinner spinnerCategory;
     private Button btnSubmit;
     private TextView tvFormTitle;
+    private boolean isSubmitting = false;
 
     private DatabaseReference eventsRef;
     private String eventId;
@@ -62,6 +65,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         initViews();
         setupCategorySpinner();
+        setupNavigation();
 
         isUpdate = getIntent().getBooleanExtra("isUpdate", false);
         eventId = getIntent().getStringExtra("eventId");
@@ -75,7 +79,9 @@ public class CreateEventActivity extends AppCompatActivity {
         etDate.setOnClickListener(v -> showDatePicker());
         etTime.setOnClickListener(v -> showTimePicker());
         btnSubmit.setOnClickListener(v -> validateAndSubmit());
+    }
 
+    private void setupNavigation() {
         findViewById(R.id.navEvents).setOnClickListener(v -> {
             startActivity(new Intent(this, OrganizerEvents.class));
             finish();
@@ -85,11 +91,11 @@ public class CreateEventActivity extends AppCompatActivity {
             finish();
         });
         findViewById(R.id.navProfile).setOnClickListener(v -> {
-            startActivity(new Intent(this, profile_setting.class));
+            startActivity(new Intent(this, organizer_profile_setting.class));
             finish();
         });
         findViewById(R.id.navScanner).setOnClickListener(v -> {
-            startActivity(new Intent(this, OrganizerScanner.class));
+            startActivity(new Intent(this, ScannerRegisteredEvents.class));
             finish();
         });
     }
@@ -167,6 +173,8 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     private void validateAndSubmit() {
+        if (isSubmitting) return;
+
         String name = etName.getText().toString().trim();
         String desc = etDescription.getText().toString().trim();
         String date = etDate.getText().toString().trim();
@@ -181,7 +189,7 @@ public class CreateEventActivity extends AppCompatActivity {
         }
 
         int maxCapacity = Integer.parseInt(capacityStr);
-        int currentParticipants = isUpdate ? existingEvent.currentParticipants : 0;
+        int currentParticipants = (isUpdate && existingEvent != null) ? existingEvent.currentParticipants : 0;
         
         long timestamp = 0;
         try {
@@ -192,25 +200,50 @@ public class CreateEventActivity extends AppCompatActivity {
             timestamp = System.currentTimeMillis() + (7 * 24 * 60 * 60 * 1000); // Fallback
         }
 
-        String status = isUpdate ? existingEvent.status : "Available";
+        String status = (isUpdate && existingEvent != null) ? existingEvent.status : "Available";
         
         long oneDayMillis = 24 * 60 * 60 * 1000;
         long currentTime = System.currentTimeMillis();
         
         if (currentParticipants >= maxCapacity) {
             status = "Full";
-        } else if (currentTime >= (timestamp - oneDayMillis)) {
+        } else if ("Available".equalsIgnoreCase(status)) {
+            // Keep it available if it was manually opened or already open
+            status = "Available";
+        } else if ("Closed".equalsIgnoreCase(status)) {
+            // Keep it closed if it was manually closed
             status = "Closed";
-        } else if (!"Closed".equalsIgnoreCase(status)) {
+        } else if (currentTime >= (timestamp - oneDayMillis)) {
+            // Auto-close if no manual status is set and time is up
+            status = "Closed";
+        } else {
             status = "Available";
         }
 
-        String id = isUpdate ? eventId : eventsRef.push().getKey();
-        String imageUrl = isUpdate ? existingEvent.imageUrl : ""; // Carry forward or empty
+        // Fix: Use the existing eventId if updating, otherwise generate a new one once
+        String id;
+        if (isUpdate && eventId != null) {
+            id = eventId;
+        } else {
+            id = eventsRef.push().getKey();
+        }
 
-        Event event = new Event(id, name, date, time, category, venue, desc, imageUrl, currentParticipants, maxCapacity, status, timestamp);
+        String imageUrl = (isUpdate && existingEvent != null) ? existingEvent.imageUrl : "";
+        String organizerId = com.google.firebase.auth.FirebaseAuth.getInstance().getUid();
+
+        Event event = new Event(id, name, date, time, category, venue, desc, imageUrl, currentParticipants, maxCapacity, status, timestamp, organizerId);
+
+        if (id == null) {
+            Toast.makeText(this, "Error generating ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        isSubmitting = true;
+        btnSubmit.setEnabled(false);
 
         eventsRef.child(id).setValue(event).addOnCompleteListener(task -> {
+            isSubmitting = false;
+            btnSubmit.setEnabled(true);
             if (task.isSuccessful()) {
                 Toast.makeText(CreateEventActivity.this, "Event saved successfully", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CreateEventActivity.this, OrganizerEvents.class);
