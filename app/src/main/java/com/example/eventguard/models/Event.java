@@ -32,4 +32,10 @@ public class Event {
         this.status = status;
         this.eventTimestamp = eventTimestamp;
     }
+
+    public void setExpired(boolean expired) {
+        if (expired) {
+            this.status = "Expired";
+        }
+    }
 }

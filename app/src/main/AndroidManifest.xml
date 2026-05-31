@@ -14,46 +14,76 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventGuard">
         <activity
-            android:name=".events.dialog_filter"
+            android:name=".OrganizerModule.OrganizerProfile.organizer_security"
             android:exported="false" />
         <activity
-            android:name=".events.events_details"
+            android:name=".OrganizerModule.OrganizerProfile.organizer_profile_setting"
+            android:exported="false" /> <!-- Organizer Module -->
+        <!-- Scanner -->
+        <activity
+            android:name=".OrganizerModule.Scanner.OrganizerScanner"
+            android:exported="false" /> <!-- Organizer Dashboard -->
+        <activity
+            android:name=".OrganizerModule.Dashboard.OrganizerAnalytics"
             android:exported="false" />
         <activity
-            android:name=".tickets.qr_pass"
+            android:name=".OrganizerModule.Dashboard.OrganizerAnalyticsList"
             android:exported="false" />
         <activity
-            android:name=".Dashboards.security"
+            android:name=".OrganizerModule.Dashboard.OrganizerDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".OrganizerModule.Dashboard.CreateEventActivity"
+            android:exported="false" /> <!-- OrganizerEvents -->
+        <activity
+            android:name=".OrganizerModule.OrganizerEvents.OrganizerEvents"
+            android:exported="false" />
+        <activity
+            android:name=".OrganizerModule.OrganizerEvents.organizer_events_details"
+            android:exported="false" />
+        <activity
+            android:name=".UserModule.Events.item_event"
+            android:exported="false" /> <!-- User Module -->
+        <!-- Events -->
+        <activity
+            android:name=".UserModule.Events.dialog_filter"
+            android:exported="false" />
+        <activity
+            android:name=".UserModule.Events.events_details"
+            android:exported="false" />
+        <activity
+            android:name=".UserModule.Events.events"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" /> <!-- Dashboard -->
         <activity
-            android:name=".Dashboards.profile_setting"
+            android:name=".UserModule.Dashboard.UserDashboard"
+            android:exported="false" /> <!-- Profile -->
+        <activity
+            android:name=".UserModule.Profile.security"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".Dashboards.UserDashboard"
-            android:exported="false" />
-        <activity
-            android:name=".tickets.registered_events"
-            android:exported="false" />
-        <activity
-            android:name=".events.events"
+            android:name=".UserModule.Profile.profile_setting"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" /> <!-- Ticket -->
         <activity
-            android:name=".Dashboards.AdminDashboard"
+            android:name=".UserModule.ticket.qr_pass"
             android:exported="false" />
         <activity
-            android:name=".Auth.Login"
-            android:windowSoftInputMode="stateHidden"
-            android:exported="false" />
+            android:name=".UserModule.ticket.registered_events"
+            android:exported="false" /> <!-- Auths -->
         <activity
-            android:name=".Auth.Register"
+            android:name=".Auths.Login"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".Auths.Register"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Auths.MainActivity"
+            android:exported="true"
+            tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

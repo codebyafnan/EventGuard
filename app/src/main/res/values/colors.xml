@@ -24,4 +24,12 @@
 
     <color name="icon_bg">#051735</color>
     <color name="nav_icon_bg">#000B36</color>
+
+    <!-- Status Colors -->
+    <color name="status_green_bg">#A5D6A7</color>
+    <color name="status_green_text">#0A310D</color>
+    <color name="status_red_bg">#EF9A9A</color>
+    <color name="status_red_text">#660E0E</color>
+    <color name="status_blue_bg">#90CAF9</color>
+    <color name="status_blue_text">#062552</color>
 </resources>

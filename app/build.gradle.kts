@@ -5,11 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.eventguard"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.eventguard"
@@ -44,6 +40,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.glide)
     implementation(libs.zxing.core)
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
     implementation(libs.appcompat)
     implementation(libs.material)

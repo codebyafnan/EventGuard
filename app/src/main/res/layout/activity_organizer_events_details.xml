@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/screen_background"
+    tools:context=".Events.Admin_events_details">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#000B36"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="58dp"
+            android:src="@drawable/top_logo"
+            android:contentDescription="EventGuard Logo" />
+    </LinearLayout>
+
+    <!-- SCROLLABLE CONTENT -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBar"
+        android:layout_above="@id/bottomNav"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- CARD -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- IMAGE -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp">
+
+                        <ImageView
+                            android:id="@+id/ivDetailBanner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/event_detail_banner"
+                            android:contentDescription="Event Banner" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient_overlay" />
+
+                        <TextView
+                            android:id="@+id/tvDetailTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:padding="16dp"
+                            android:text="Event Title"
+                            android:textColor="#FFFFFF"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <!-- DESCRIPTION -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Description"
+                            android:textStyle="bold"
+                            android:textColor="#1F2A5A"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvDetailDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Description goes here..."
+                            android:textColor="@color/secondary_text"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4dp"/>
+                    </LinearLayout>
+
+                    <!-- Ticket Divider -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginHorizontal="12dp"
+                            android:background="@drawable/dashed_divider"/>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/circle_bg"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="-10dp"
+                            app:tint="@color/screen_background"
+                            android:contentDescription="Left cutout"/>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/circle_bg"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="-10dp"
+                            app:tint="@color/screen_background"
+                            android:contentDescription="Right cutout"/>
+                    </RelativeLayout>
+
+                    <!-- GRID DETAILS -->
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:padding="16dp"
+                        android:useDefaultMargins="true">
+
+                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
+                            <TextView android:text="CATEGORY" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tvDetailCategory" android:text="Workshop" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
+                            <TextView android:text="CAPACITY" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tvDetailCapacity" android:text="0/0" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
+                            <TextView android:text="DATE" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tvDetailDate" android:text="Oct 28, 2026" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:orientation="vertical" android:layout_columnWeight="1" android:layout_marginBottom="12dp">
+                            <TextView android:text="TIME" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tvDetailTime" android:text="09:00 AM" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:orientation="vertical" android:layout_columnSpan="2" android:layout_marginBottom="12dp">
+                            <TextView android:text="LOCATION" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
+                            <TextView android:id="@+id/tvDetailLocation" android:text="Main Auditorium" android:textColor="@color/primary_text" android:textStyle="bold" android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout android:orientation="vertical" android:layout_columnSpan="2">
+                            <TextView android:text="STATUS" android:textSize="11sp" android:textColor="@color/secondary_text" android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvDetailStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Active"
+                                android:textColor="#FFFFFF"
+                                android:textStyle="bold"
+                                android:paddingHorizontal="12dp"
+                                android:paddingVertical="4dp"
+                                android:background="@drawable/green_badge"
+                                android:textSize="12sp"/>
+                        </LinearLayout>
+                    </GridLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ACTION BUTTONS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp">
+
+                <Button
+                    android:id="@+id/btnUpdateEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Update Event Details"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#000B36"
+                    app:cornerRadius="12dp"
+                    android:elevation="4dp"/>
+
+                <Button
+                    android:id="@+id/btnDeleteEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Delete This Event"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#D32F2F"
+                    app:cornerRadius="12dp"
+                    android:elevation="2dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM NAVIGATION -->
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/card_background"
+        android:elevation="12dp"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <LinearLayout
+            android:id="@+id/navEvents"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/nav_bg"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/event_light" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Events"
+                android:textSize="10sp"
+                android:textColor="#246DFD"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navScanner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/qr"
+                app:tint="@color/hint_text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scanner"
+                android:textSize="10sp"
+                android:textColor="@color/hint_text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navDashboard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/nav_grey_dashboard" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dashboard"
+                android:textSize="10sp"
+                android:textColor="@color/hint_text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/nav_grey_profile" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="10sp"
+                android:textColor="@color/hint_text"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

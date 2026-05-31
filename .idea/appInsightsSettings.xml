@@ -7,14 +7,6 @@
         <entry key="Firebase Crashlytics">
           <value>
             <InsightsFilterSettings>
-              <option name="connection">
-                <ConnectionSetting>
-                  <option name="appId" value="com.example.eventguard" />
-                  <option name="mobileSdkAppId" value="1:12625303697:android:db4dc7824f0abeb8bec730" />
-                  <option name="projectId" value="eventguard-601b6" />
-                  <option name="projectNumber" value="12625303697" />
-                </ConnectionSetting>
-              </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
               <option name="timeIntervalDays" value="THIRTY_DAYS" />
               <option name="visibilityType" value="ALL" />
