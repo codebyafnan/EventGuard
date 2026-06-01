@@ -112,10 +112,19 @@ public class organizer_profile_setting extends AppCompatActivity {
         LinearLayout btnlogout = findViewById(R.id.btnlogout);
 
         // Navbar
-        findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
-        findViewById(R.id.navDashboard).setOnClickListener(v -> startActivity(new Intent(this, OrganizerDashboard.class)));
-        findViewById(R.id.navScanner).setOnClickListener(v -> startActivity(new Intent(this, ScannerRegisteredEvents.class)));
-        // Profile is current
+        findViewById(R.id.navEvents).setOnClickListener(v -> {
+            startActivity(new Intent(this, OrganizerEvents.class));
+            finish();
+        });
+        findViewById(R.id.navDashboard).setOnClickListener(v -> {
+            startActivity(new Intent(this, OrganizerDashboard.class));
+            finish();
+        });
+        findViewById(R.id.navScanner).setOnClickListener(v -> {
+            startActivity(new Intent(this, ScannerRegisteredEvents.class));
+            finish();
+        });
+        findViewById(R.id.navProfile).setOnClickListener(v -> {});
 
         loadUserData();
 

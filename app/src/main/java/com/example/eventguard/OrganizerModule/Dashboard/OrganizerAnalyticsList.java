@@ -174,20 +174,7 @@ public class OrganizerAnalyticsList extends AppCompatActivity {
         rvAnalyticsEvents = findViewById(R.id.rvAnalyticsEvents);
         rvAnalyticsEvents.setLayoutManager(new LinearLayoutManager(this));
         
-        adapter = new OrganizerEventAdapter(this, filteredEvents) {
-            @Override
-            public void onBindViewHolder(@NonNull AdminEventViewHolder holder, int position) {
-                super.onBindViewHolder(holder, position);
-                Event event = filteredEvents.get(position);
-                holder.btnManage.setText("View Analytics");
-                holder.btnManage.setOnClickListener(v -> {
-                    Intent intent = new Intent(OrganizerAnalyticsList.this, OrganizerAnalytics.class);
-                    intent.putExtra("eventId", event.id);
-                    intent.putExtra("eventTitle", event.title);
-                    startActivity(intent);
-                });
-            }
-        };
+        adapter = new OrganizerEventAdapter(this, filteredEvents, true);
         rvAnalyticsEvents.setAdapter(adapter);
     }
 
@@ -211,9 +198,21 @@ public class OrganizerAnalyticsList extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
-        findViewById(R.id.navScanner).setOnClickListener(v -> startActivity(new Intent(this, ScannerRegisteredEvents.class)));
-        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, organizer_profile_setting.class)));
-        findViewById(R.id.navDashboard).setOnClickListener(v -> startActivity(new Intent(this, OrganizerDashboard.class)));
+        findViewById(R.id.navEvents).setOnClickListener(v -> {
+            startActivity(new Intent(this, OrganizerEvents.class));
+            finish();
+        });
+        findViewById(R.id.navScanner).setOnClickListener(v -> {
+            startActivity(new Intent(this, ScannerRegisteredEvents.class));
+            finish();
+        });
+        findViewById(R.id.navProfile).setOnClickListener(v -> {
+            startActivity(new Intent(this, organizer_profile_setting.class));
+            finish();
+        });
+        findViewById(R.id.navDashboard).setOnClickListener(v -> {
+            startActivity(new Intent(this, OrganizerDashboard.class));
+            finish();
+        });
     }
 }

@@ -87,10 +87,19 @@ public class OrganizerDashboard extends AppCompatActivity {
         });
 
         // Navigation
-        findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
-        findViewById(R.id.navScanner).setOnClickListener(v -> startActivity(new Intent(this, ScannerRegisteredEvents.class)));
-        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, organizer_profile_setting.class)));
-        // Dashboard is current
+        findViewById(R.id.navEvents).setOnClickListener(v -> {
+            startActivity(new Intent(this, OrganizerEvents.class));
+            finish();
+        });
+        findViewById(R.id.navScanner).setOnClickListener(v -> {
+            startActivity(new Intent(this, ScannerRegisteredEvents.class));
+            finish();
+        });
+        findViewById(R.id.navProfile).setOnClickListener(v -> {
+            startActivity(new Intent(this, organizer_profile_setting.class));
+            finish();
+        });
+        findViewById(R.id.navDashboard).setOnClickListener(v -> {});
 
         findViewById(R.id.btnFindEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
         findViewById(R.id.btnScanner).setOnClickListener(v -> startActivity(new Intent(this, ScannerRegisteredEvents.class)));

@@ -22,10 +22,16 @@ public class OrganizerEventAdapter extends RecyclerView.Adapter<OrganizerEventAd
 
     private Context context;
     private List<Event> eventList;
+    private boolean isAnalytics;
 
     public OrganizerEventAdapter(Context context, List<Event> eventList) {
+        this(context, eventList, false);
+    }
+
+    public OrganizerEventAdapter(Context context, List<Event> eventList, boolean isAnalytics) {
         this.context = context;
         this.eventList = eventList;
+        this.isAnalytics = isAnalytics;
     }
 
     @NonNull
@@ -82,11 +88,22 @@ public class OrganizerEventAdapter extends RecyclerView.Adapter<OrganizerEventAd
             holder.tvStatus.setTextColor(context.getResources().getColor(R.color.status_green_text));
         }
 
-        holder.btnManage.setOnClickListener(v -> {
-            Intent intent = new Intent(context, organizer_events_details.class);
-            intent.putExtra("eventId", event.id);
-            context.startActivity(intent);
-        });
+        if (isAnalytics) {
+            holder.btnManage.setText("View Analytics");
+            holder.btnManage.setOnClickListener(v -> {
+                Intent intent = new Intent(context, com.example.eventguard.OrganizerModule.Dashboard.OrganizerAnalytics.class);
+                intent.putExtra("eventId", event.id);
+                intent.putExtra("eventTitle", event.title);
+                context.startActivity(intent);
+            });
+        } else {
+            holder.btnManage.setText("Manage");
+            holder.btnManage.setOnClickListener(v -> {
+                Intent intent = new Intent(context, organizer_events_details.class);
+                intent.putExtra("eventId", event.id);
+                context.startActivity(intent);
+            });
+        }
     }
 
     @Override

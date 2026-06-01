@@ -125,11 +125,18 @@ public class OrganizerEvents extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, OrganizerEvents.class)));
-        findViewById(R.id.navDashboard).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, OrganizerDashboard.class)));
-        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(OrganizerEvents.this, organizer_profile_setting.class)));
+        findViewById(R.id.navEvents).setOnClickListener(v -> {});
+        findViewById(R.id.navDashboard).setOnClickListener(v -> {
+            startActivity(new Intent(OrganizerEvents.this, OrganizerDashboard.class));
+            finish();
+        });
+        findViewById(R.id.navProfile).setOnClickListener(v -> {
+            startActivity(new Intent(OrganizerEvents.this, organizer_profile_setting.class));
+            finish();
+        });
         findViewById(R.id.navScanner).setOnClickListener(v -> {
             startActivity(new Intent(OrganizerEvents.this, ScannerRegisteredEvents.class));
+            finish();
         });
 
         calendarFilter.setOnDateChangeListener((view, year, month, dayOfMonth) -> {

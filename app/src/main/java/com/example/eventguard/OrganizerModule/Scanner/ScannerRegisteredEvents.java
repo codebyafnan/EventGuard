@@ -198,9 +198,18 @@ public class ScannerRegisteredEvents extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        findViewById(R.id.navEvents).setOnClickListener(v -> startActivity(new Intent(this, OrganizerEvents.class)));
-        findViewById(R.id.navDashboard).setOnClickListener(v -> startActivity(new Intent(this, OrganizerDashboard.class)));
-        findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, organizer_profile_setting.class)));
-        // navScanner is current
+        findViewById(R.id.navEvents).setOnClickListener(v -> {
+            startActivity(new Intent(this, OrganizerEvents.class));
+            finish();
+        });
+        findViewById(R.id.navDashboard).setOnClickListener(v -> {
+            startActivity(new Intent(this, OrganizerDashboard.class));
+            finish();
+        });
+        findViewById(R.id.navProfile).setOnClickListener(v -> {
+            startActivity(new Intent(this, organizer_profile_setting.class));
+            finish();
+        });
+        findViewById(R.id.navScanner).setOnClickListener(v -> {});
     }
 }
